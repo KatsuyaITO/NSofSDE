@@ -1,4 +1,5 @@
 # 平成28年度数学特別講究
+## 概要
 * テキスト [KP] P.E. Kloeden and E. Platen. Numerical Solution of Stochastic Differential Equations, volume 23. Springer, 1992.
 * 発表者 伊藤克哉(E-mail:k1ito(a)ms.u-tokyo.ac.jp, (a)=@)
 * 時間 毎週月曜日3限(13:00〜)
