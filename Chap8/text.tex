@@ -1,0 +1,191 @@
+\documentclass[a4paper]{jreport}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm]{hyperref}
+\usepackage{framed}
+\usepackage{color}
+
+\usepackage[top=20truemm,bottom=20truemm,left=15truemm,right=15truemm]{geometry}
+
+
+\def\qedsymbol{$\square$}
+\def\proofname{\gt{証明}\;}
+\newenvironment{Proof}{\par\noindent{\it\proofname}}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\newenvironment{Proof*}{\par\noindent}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\ifx\undefined\bysame \newcommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\,}\fi
+%
+\numberwithin{equation}{section}
+\newtheorem{Thm}     {定理}[section]
+\newtheorem{Lemma}   [Thm]{補題}
+\newtheorem{Def}     [Thm]{定義}
+\newtheorem{Prop}    [Thm]{命題}
+\newtheorem{Fact}    [Thm]{事実}
+\newtheorem{Cor}     [Thm]{系}  
+\newtheorem{Conj}    [Thm]{予想}
+\newtheorem{Ex}      [Thm]{例}  
+\newtheorem{Achiom}   [Thm]{公理}
+\newtheorem{Method}[Thm]{方法} 
+\newtheorem{Rem}  [Thm]{注意}
+\newtheorem{Notation}[Thm]{記法}
+\newtheorem{Symbol}  [Thm]{記号}
+\newtheorem{Prob}    [Thm]{問題}
+\makeatletter
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{\vrule width 1pt \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+\makeatother
+
+\newenvironment{redleftbar}{%
+  \def\FrameCommand{\textcolor{red}{\vrule width 1pt} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{lightgrayleftbar}{%
+  \def\FrameCommand{\textcolor{lightgray}{\vrule width 1zw} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\def\C{\mathbb C}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+
+\def\R{\mathbb R}
+\def\F{\mathcal F}
+\def\method{\begin{leftbar}\begin{Method}}
+\def\methodx{\end{Method}\end{leftbar}}
+\def\thm{\begin{Thm}}
+\def\thmx{\end{Thm}}
+\def\prop{\begin{Prop}}
+\def\propx{\end{Prop}}
+\def\defb{\begin{Def}}
+\def\defe{\end{Def}}
+\def\defx{\end{Def}}
+\newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
+\def\rem{\begin{Rem}}
+\def\remx{\end{Rem}}
+\def\prob{\begin{Prob}}
+\def\probx{\end{Prob}}
+\def\lem{\begin{Lemma}}
+\def\lemx{\end{Lemma}}
+\def\ex{\begin{Ex}}
+\def\exx{\end{Ex}}
+\def\cor{\begin{Cor}}
+\def\corx{\end{Cor}}
+\def\proof{\begin{Proof}}
+\def\proofx{\end{Proof}}
+\def\eq{\begin{equation}}
+\def\eqx{\end{equation}}
+\def\eqa{\begin{eqnarray}}
+\def\eqax{\end{eqnarray}}
+\def\a{\alpha}
+\def\lmd{\lambda}
+\def\omg{\omega}
+\def\Lmd{\Lambda}
+\def\Omg{\Omega}
+\newcommand{\Image}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}\nolimits}
+\newcommand{\Coker}{\mathop{\mathrm{Coker}}\nolimits}
+\newcommand{\vol}{\mathop{\mathrm{vol}}\nolimits}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
+\title{Numerical Solution of Stochastic Differential Equations}
+\usepackage{makeidx}
+\makeindex
+
+\begin{document}
+\maketitle
+\tableofcontents
+\leavevmode \\
+\chapter{決定論的微分方程式の時間離散近似}
+\section{Introduction}
+\eq
+\label{eq1}
+\dot{x} = \frac{dx}{dt} = a(t,x), \  \  x(t_0) = x_0
+\eqx
+というような(決定論的)微分方程式の初期値問題を解くことは多くの場面において必要となるが,一般にこの微分方程式の解$x = x(t;t_0,x_0)$を明示的に求めることは出来ない.また解が見つかったとしても,明示的でなかったり数値解析の視点からすると複雑で計算や描画に不向きであることが多い.\par
+ここで広く使われている方法が{\bf 時間離散近似} である.
+時間離散近似は,与えられた時間離散化 $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $に対して,
+解$x(t_1;t_0,x_0),x(t_2;t_0,x_0),\cdots,x(t_n;t_0,x_0),\cdots$を近似するような,
+$y_1,y_2,\cdots,y_n,\cdots$を生成する方程式である.この章ではまずこれらの近似方法の一覧を示し,次にその離散化誤差,整合性,安定性,収束といった性質を示す.
+\section{時間離散近似方法}
+(\ref{eq1})
+のような初期値問題を解くときに一番シンプルな方法が以下のEuler法である.
+\method[Euler法]
+{\bf Euler法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq2}
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.
+\methodx
+次に,このEuler法を更に精度を上げるために以下の台形法を用いる.
+\method[台形法]
+{\bf 台形法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq3}
+y_{n+1} = y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},y_{n+1}) \} \Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.
+\methodx
+この方法は$y_{n+1}$という不定値が両辺に含まれているため{\bf implicit}な方法と呼ばれる.一般にはこの不定値は移行することが出来ないので計算が複雑になることがある.故にそれを修正したのが,以下の修正台形法である.
+\method[修正台形法]
+{\bf 修正台形法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eqa
+\label{eq4}
+\bar{y}_{n+1} &=& y_n + a(t_n,y_n)\Delta_n  \\
+\label{eq5}
+y_{n+1} &=& y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},\bar{y}_{n+1}) \} \Delta_n 
+\eqax
+によって与える.つまり,$\bar{y}_{n+1}$を下の式に代入して,
+\eq
+\label{eq6}
+y_{n+1} = y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},y_n + a(t_n,y_n)\Delta_n) \} \Delta_n
+\eqx
+によって与えられる.
+\methodx
+修正台形法は,{\bf improved Euler法}や{\bf Heun法}とも呼ばれている.
+また,このような方法は{\bf 予測子修正子法}と呼ばれている.というのは,
+一度(\ref{eq4})で予測子$\bar{y}_{n+1}$を計算し,それを(\ref{eq5})のような式に代入して修正子$y_{n+1}$を得ているからである.\par
+ここで今まで上げたような方法を一般化して次の方法を得る.
+\method[一段法]
+{\bf 一段法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq7}
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.$\Psi(t,y,\Delta)$のことをincrement functionという.
+\methodx
+例えばEuler法(\ref{eq2})では$\Psi(t,y,\Delta) = a(t,x)$であり,Heun法(\ref{eq6})では
+$\Psi(t,y,\Delta) = \frac{1}{2} \{ a(t,y) + a(t+\Delta ,y + a(t,y)\Delta) \}$であった.これまで上げた方法は全て一段法であったが,それとは別の多段法を紹介する.
+\method[Adams-Bashford法]
+{\bf Adams-Bashford法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta = t_{n+1} - t_{n}$ が一定な離散化に対して,近似解を
+\eq
+\label{eq8}
+y_{n+1} = y_n + \frac{1}{12} \{ 23 a(t_n , y_n) - 16 a(t_{n-1},y_{n-1}) + 5 a(t_{n-2},y_{n-2}) \} \Delta
+\eqx
+によって与える.
+\methodx
+これは,$y_{n+1}$を求めるために$y_n , y_{n-1} , \cdots , y_{n-k} $を必要としているために多段法と呼ばれている.例えばAdams-Bashford法は3段法である.3段法において,計算を始めるためには,$y_0,y_1,y_2$を求める必要があるが,これらは一段法によって計算される.\par
+また更に高い精度を得るために次のように,既存の方法を反復するような方法を紹介する.
+
+\method[Richardson反復法]
+間隔$\Delta = T/N$によって$[0,T]$が等間隔に$N$等分されており,その離散化に対してEuler法を適用する場合を考える.
+$y_N(\Delta)$を$\Delta$間隔で離散化したときの近似解の$\Delta N$での値とする.
+$x(T)$を$T$での真の解の値とする.このとき
+\eq
+y_N(\Delta) = x(T) + e(T) \Delta + O(\Delta^2)
+\eqx
+が成り立っており,また,$2N$等分して離散化したときのことを考えると,
+\eq
+y_{2N}(\frac{1}{2}\Delta) = x(T) + \frac{1}{2} e(T) \Delta + O(\Delta^2)
+\eqx
+が成り立っている.$e(T)$を消去することによって,
+\eq
+x(T) = 2y_{2N}(\frac{1}{2}\Delta) - y_N(\Delta) + O(\Delta^2)
+\eqx
+を得るので,
+\eq
+Z_N(\Delta) = 2y_{2N}(\frac{1}{2}\Delta) - y_N(\Delta)
+\eqx
+とすることによって近似を得る.これをRichardson反復法という.
+\methodx
+\end{document}

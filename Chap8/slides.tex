@@ -1,0 +1,63 @@
+\documentclass[dvipdfmx,cjk]{beamer} 
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}} 
+\usetheme{CambridgeUS} 
+\usecolortheme{seahorse}
+\setbeamertemplate{theorems}[numbered]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{proposition}[thm]{Proposition}
+\theoremstyle{example}
+\newtheorem{exam}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{question}[thm]{Question}
+\newtheorem{prob}[thm]{Problem}
+\begin{document}
+\title[Chap8]{Chapter.8 決定論的微分方程式の離散時間近似} 
+\author[Katsuya ITO]{伊藤克哉} 
+\institute[UT]{東京大学}
+\date{2016/09/26}
+\begin{frame}                  %% \begin{frame}..\end{frame} で 1 枚のスライド
+\titlepage                     %% タイトルページ
+\end{frame}
+
+\begin{frame}                  %% 目次 (必要なければ省略)
+\tableofcontents
+\end{frame}
+
+\section{箇条書き}             %% セクション名
+\begin{frame}
+\frametitle{松本}              %% フレームタイトル
+
+\begin{itemize}
+\item 豊科\pause               %% \pause でとまる
+\item 穂高\pause
+\item 明科
+\end{itemize}
+\end{frame}
+
+\section{定理型環境}           %% 定理型環境が使える
+\begin{frame}                  %% \newtheorem で新しい環境も作れる
+\begin{thm}
+定理型環境が使える。
+使い方は普通の \LaTeX と同じ
+\end{thm}
+\pause
+
+\begin{proof}
+証明も書ける。
+\end{proof}
+\pause
+
+\begin{exam}                   %% 色が違う
+example
+\end{exam}
+\end{frame}
+
+\section{文字の色}             %% 文字の色を変える
+\begin{frame}
+\frametitle{文字の色を変えてみよう}
+{\color{red}赤}\pause
+{\color{blue}青}\pause
+{\color{green}緑}
+\end{frame}
+
+\end{document}
