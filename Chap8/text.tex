@@ -281,9 +281,37 @@ y_{n+1} = y_n + \frac{1}{6} \{ k_n^{(1)} +
  k_n^{(1)} &=&  a(t_n,y_n),\\
  k_n^{(2)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(1)} \Delta_n\right),\\
  k_n^{(3)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(2)} \Delta_n\right),\\
- k_n^{(4)} &=&  a\left(t_{n+1} ,y_n + k_n^{(3)} \Delta_n\right),\\
+ k_n^{(4)} &=&  a\left(t_{n+1} ,y_n + k_n^{(3)} \Delta_n\right)
 \eqax
 \methodx
+$4$次のRunge-Kutta法は,
+\[
+y_{n+1} - y_{n} = \int_{t_n}^{t_{n+1}} a(t) dt 
+\]
+に対してSimpsonの公式を当てはめて積分を計算しただけである.\\
+次に多段法についていくつかの例を紹介する.
+\method[一般の多段法]
+{\bf 多段法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta = t_{n+1} - t_{n}$ が一定な離散化に対して,近似解を
+\eq
+\label{eq29}
+y_{n+1} = \sum_{j=1}^k \alpha_j y_{n+1-j}
++ \sum_{j=0}^k \beta_j a(t_{n+1-j},y_{n+1-j})\Delta
+\eqx
+によって与える.ただし$\alpha_j,\beta_j$は定数である.
+\methodx
+\defb
+式(\ref{eq29})において,$\beta_0 = 0$のとき,これをexplicitな方法と呼び,
+$\beta_0 \neq 0$のとき,これをimplicitな方法と呼ぶ.
+\defx
+\ex
+多段法の例を3つ上げる.それぞれ近似解は次の式で与えられる.\\
+\bf{中点法}
+\eq y_{n+1} = y_{n-1} + 2a(t_n,y_n)\Delta \eqx
+\bf{Milne法}
+\eq y_{n+1} = y_{n-3} + \frac{4}{3}\{ 2a(t_n,y_n)- a(t_{n-1},y_{n-1}) + 2 a(t_{n-2},y_{n-2})\} \Delta \eqx
+\bf{Adams-Moulton法}
+\eq y_{n+1} = y_{n} + \frac{1}{12}\{ 5a(t_{n+1},y_{n+1})+ 8a(t_{n},y_{n}) - a(t_{n-1},y_{n-1})\} \Delta \eqx
 
+\exx
 
 \end{document}
