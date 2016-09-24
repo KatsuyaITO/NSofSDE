@@ -2,6 +2,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[dvipdfm]{hyperref}
+\usepackage{pxjahyper}
 \usepackage{framed}
 \usepackage{color}
 
@@ -53,8 +54,8 @@
 \def\F{\mathcal F}
 \def\method{\begin{leftbar}\begin{Method}}
 \def\methodx{\end{Method}\end{leftbar}}
-\def\thm{\begin{Thm}}
-\def\thmx{\end{Thm}}
+\def\thm{\begin{leftbar}\begin{Thm}}
+\def\thmx{\end{Thm}\end{leftbar}}
 \def\prop{\begin{Prop}}
 \def\propx{\end{Prop}}
 \def\defb{\begin{Def}}
@@ -188,4 +189,101 @@ Z_N(\Delta) = 2y_{2N}(\frac{1}{2}\Delta) - y_N(\Delta)
 \eqx
 とすることによって近似を得る.これをRichardson反復法という.
 \methodx
+ここで,$a$に条件を課せば,次のTaylorの定理が成り立っていることに着目する.
+\thm[Taylorの定理]
+$x(t)$は$p+1$回連続微分可能であるとする.このとき,
+$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,
+\eq
+\label{eq21}
+x(t_{n+1}) = x(t_n) + \frac{dx}{dt}(t_n)\Delta_n + \cdots + 
+\frac{1}{p!}\frac{d^px}{dt^p}(t_n)\Delta^p_n + \frac{1}{(p+1)!}\frac{d^{p+1}x}{dt^{p+1}}(\theta_n)\Delta^{p+1}_n
+\eqx
+を満たすような$t_n < \theta_n < t_{n+1}$が存在する.
+\thmx
+そして,微分方程式
+\eq
+\label{eq22}
+\dot{x} = \frac{dx}{dt} = a(t,x(t))
+\eqx
+に着目して,チェインルールを適応すれば,
+\eq
+\frac{dx}{dt} = a ,\frac{d^2x}{dt^2} = a_t + a_x a, 
+\frac{d^3x}{dt^3} = a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a, \cdots
+\eqx
+($t,x$での偏微分を省略して$a_t,a_x$と書いた)が成り立っているので,これらを代入して,剰余項を無視すれば次のようなTaylor近似が得られる.
+\method[Taylor近似]
+{\bf p次Taylor近似}は(\ref{eq22})をみたす微分方程式と$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq23}
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\frac{da}{dt}(t_n,y_n) \Delta_n^2 + \cdots + \frac{1}{p!}\frac{d^{p-1}a}{dt^{p-1}}(t_n)\Delta^p_n
+\eqx
+によって与える.
+\methodx
+\ex
+例えば,$2$次Taylor近似は,
+\eq
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
+\eqx
+$3$次Taylor近似は,
+\eq
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
++\frac{1}{3!}\{ a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a \} \Delta_n^3
+\eqx
+によって与えられる.各々の偏微分には$(t_n,y_n)$を代入する.
+\exx
+しかし,これらのTaylor近似は,与えられた$a$に対して偏微分を計算しなければならないという点において実用的ではない.その場合には,
+\eq
+a_t(t_n,y_n) \approx \frac{a(t_{n+1},y_n) - a(t_n,y_n)}{\Delta_n},
+a_x(t_n,y_n) \approx \frac{a(t_n,y_{n+1}) - a(t_n,y_n)}{y_{n+1} -y_n}
+\eqx
+という近似を使って偏微分を計算すれば良い.また,$a_x$の計算には$y_{n+1}$が現れるが,
+それはEuler法等により予測すれば良い.\par
+再び一段法について着目する.一段法はヒューリスティックに
+\eq
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n
+\eqx
+という式の$\Psi(t,y,\Delta)$を計算することが重要であったが,ここではその方法の典型的な例であるRunge-Kutta法について触れる.
+\method[2次Runge-Kutta法]
+{\bf 2次Runge-Kutta法}は 
+\eq
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+という一段法のincrement functionに対して,
+\eq
+\Psi(t,y,\Delta) = \alpha \: a(t,x) + \beta \: a(t+\gamma \Delta, x + \gamma a(t,x) \Delta)
+\eqx
+を代入することによって得られる.
+\methodx
+ここで,右辺を展開することによって,
+\[
+\Psi(t,y,\Delta) = (\alpha + \beta)a(t,x) + \gamma \beta(a_t + a_x a )\Delta
++ \frac{1}{2}  \gamma^2 \beta (a_{tt} + 2a_{tx}a + a_{xx}a^2)\Delta^2 + \cdots
+\]
+が得られる.ここで$3$次Taylor近似と各項を比較すると,
+\[
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
++\frac{1}{3!}\{ a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a \} \Delta_n^3
+\]
+\[
+\alpha + \beta = 1 ,\ \ \gamma \beta = \frac{1}{2}
+\]
+が得られる.一方で$\alpha = \beta = 1/2, \gamma =1$を代入するとこれはHeun法(\ref{eq6})となる.
+ここで更に$4$次のRunge-Kutta法について紹介する.
+\method[4次Runge-Kutta法]
+{\bf 4次Runge-Kutta法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という\\
+間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+y_{n+1} = y_n + \frac{1}{6} \{ k_n^{(1)} +
+2k_n^{(2)}+ 2k_n^{(3)} +  k_n^{(4)} \} \Delta_n
+\eqx
+によって与える.ただし,
+\eqa
+ k_n^{(1)} &=&  a(t_n,y_n),\\
+ k_n^{(2)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(1)} \Delta_n\right),\\
+ k_n^{(3)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(2)} \Delta_n\right),\\
+ k_n^{(4)} &=&  a\left(t_{n+1} ,y_n + k_n^{(3)} \Delta_n\right),\\
+\eqax
+\methodx
+
+
 \end{document}
