@@ -422,7 +422,7 @@ e_{n+1} = e_n + (a(t_n,x(t_n))-a(t_n,y_n))\Delta + \frac{1}{2!} \ddot{x}(\theta_
 |e_{n+1}| \le \frac{1}{2} \left( \frac{(1+K\Delta)^n -1 }{(1+K\Delta)-1} \right)M\Delta^2 \le
 \frac{1}{2} (e^{nK\Delta} -1) \frac{M}{K}\Delta
 \]
-であるので,Euler法の大域離散化誤差は$\Delta$のオーダであることが分かる.\par
+であるので,Euler法の大域離散化誤差は$\Delta$のオーダーであることが分かる.\par
 次に一般の一段法について整合性,安定性,収束といった性質を紹介する.\\
 一段法とは,
 \eq
@@ -444,8 +444,8 @@ y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
 \defx
 
 \defb
-一段法(\ref{eq32})が収束するとは,$\Delta =\max_n \Delta_n$とおいて, $\Delta$を$0$に近づけると,
-大域離散化誤差$e_{n+1}$が$0$に収束するということであり,つまり\\
+$\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が収束するとは,
+任意の有界区間$[t_0,T]$において,$\Delta$を$0$に近づけると,大域離散化誤差$e_{n+1}$が$0$に収束するということであり,つまり\\
 \[
 \lim_{\Delta \downarrow 0} |e_{n+1}| = 0
 \]
@@ -521,15 +521,86 @@ y_n = (1+\lambda\Delta)y_0
 \]
 を満たすような$L$が存在するとする.このとき,一段法の収束性と整合性は同値である.
 \thmx
+\proof
+まず$\Psi$に対する仮定から大域離散化誤差$e_{n+1}$を評価を導く.微分方程式
+\[
+\frac{dz}{dt} = \Psi(t,z,0) ,\ z(t_0) = x_0
+\]
+はLipschitz条件から唯一つ解を持つ.この解は連続微分可能であるので,平均値の定理から,
+\[
+z(t_{n+1}) - z(t_n) = \Psi(t_n+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0) \Delta_n
+\]
+を満たすような$0 < \theta_n < 1$が存在する.$y_n$を初期値$y_0 = x_0$に対する一段法の近似解であるとする.
+つまり,以下を満たすとする.
+\[
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\]
+$\bar{e}_{n} = y_n - z(t_n)$として定めると,辺々を引くことによって,
+
+\eqa
+\bar{e}_{n+1} &=& \bar{e}_{n} + (\Psi(t_n,y_n,\Delta_n) - \Psi(t+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0)) \Delta_n \\
+&=& \bar{e}_{n} + (\Psi(t_n,y_n,\Delta_n) -\Psi(t_n,z(t_n),0))\Delta_n  + (\Psi(t_n,z(t_n),0) - \Psi(t+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0)) \Delta_n 
+\eqax
+が得られる.ここでLipschitz条件を使うと,
+\[
+|\bar{e}_{n+1}| \le |\bar{e}_{n}| +K (|\bar{e}_{n}| + \Delta_n)\Delta_n + K(\theta_n\Delta_n + |z(t_n)
+- z(t_n+\theta_n\Delta_n,0) |)\Delta_n
+\]
+が得られる.$|z(t_n) - z(t_n+\theta_n\Delta_n,0) |$を最初の平均値の定理によって評価すると,
+\[
+|z(t_n) - z(t_n+\theta_n\Delta_n,0)| \le | \Psi(t_n+\bar{\theta}_n\theta_n\Delta_n \,z(t_n+\bar{\theta}_n\theta_n\Delta_n,0),0)| \theta_n \Delta_n \le L \theta_n \Delta_n
+\]
+とできる.ただし,$0<\bar{\theta}_n<1$これを代入することによって,
+\[
+|\bar{e}_{n+1}| \le (1+K\Delta)|\bar{e}_{n}| + K(L+2)\Delta^2 ,\ (\Delta = \max_n \Delta_n)
+\]
+を得る.故にこの不等式を帰納的に使うことによって,\\
+\[
+|\bar{e}_{n}| \le (L+2)(e^{K(T-t_0)}-1)\Delta
+\]
+が成り立つ.これにより,$y_n$は$z(t)$に収束することがわかった.\par
+ここで,整合性を仮定すると,$z(t)$は$dx/dt = a(t,x)$の唯一解であるので,$\bar{e}_n$がその大域離散化誤差となり収束性が示される.\par
+また,収束性を仮定すると$[t_0,T]$上で常に$z(t)=x(t)$である.一方で整合的でないと仮定すると$a(t_0,x_0) \neq \Psi(t_0,x_0,0)$となる点がある.これは,\[
+\frac{dx}{dt}(t_0) = a(t_0,x_0) \neq \Psi((t_0,x_0),0) = \frac{dz}{dt}(t_0)
+\]
+により,$z(t)=x(t)$に矛盾する.
+\proofx
 \thm
 一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすとする.\\
-このとき,局所離散化誤差$l_{n+1}$が$\Delta^{p+1}$のオーダであるならば,大域離散化誤差$e_{n+1}$は$\Delta^{p}$のオーダである.
+このとき,局所離散化誤差$l_{n+1}$が$\Delta^{p+1}$のオーダーであるならば,大域離散化誤差$e_{n+1}$は$\Delta^{p}$のオーダーである.
 \thmx
-
+\proof
+この初期値問題の解を$x(t)$とおき,この一段法による近似解を$y_n$とおく.大域離散化誤差は定義から
+\eqa
+e_{n+1} &=& y_{n+1} - x(t_{n+1})\\
+&=& e_n + \Psi(t_n,y_n,\Delta_n) \Delta_n + x(t_n) - x(t_{n+1}) \\
+&=& e_n + (\Psi(t_n,y_n,\Delta_n) - \Psi(t_n,x(t_n),\Delta_n))\Delta_n +
+(\Psi(t_n,x(t_n),\Delta_n)\Delta_n + x(t_n) - x(t_{n+1}))
+\eqax
+今,仮定から$\Psi$は大域Lipschitz条件を満たし,局所離散化誤差,$x(t_{n+1};t_n,y_n) - y_{n+1}$は$\Delta^{p+1}$のオーダーであるので,
+\[
+|e_{n+1}| \le |e_n| + K|e_n|\Delta_n + D\Delta^{p+1}
+\]
+が得られ,これを帰納的に繰り返すことによって,$\max_n \Delta_n  = \Delta$とおいて
+\[
+|e_n| \le \frac{D}{K} (e^{K(T-t_0)} - 1)\Delta^p
+\]
+が成り立つ.
+\proofx
 \thm
-一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすことと一段法が数値的安定であることは同値である.
+一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすならば一段法は数値的安定である.
 \thmx
+\proof
+$\Psi$が大域Lipschitz条件を満たすと仮定する.
+$y_n , \tilde{y}_n$という任意の解に対して,
+\eqa
+|y_{n+1} - \tilde{y}_{n+1}| & \le & |y_n - \tilde{y}_n + \Delta(\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta)) | \\
+& \le & |y_n - \tilde{y}_n| + \Delta |\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta| \\
+& \le & (1+K\Delta) |y_n - \tilde{y}_n| 
+\eqax
+をみたすので,$M = (1+K\Delta)^{n_T}$とおけば数値的安定性が示せる.
 
+\proofx
 
 
 \end{document}
