@@ -435,6 +435,23 @@ e_{n+1} = e_n + (a(t_n,x(t_n))-a(t_n,y_n))\Delta + \frac{1}{2!} \ddot{x}(\theta_
 y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
 \eqx
 という式によって近似解を求める方法であった.\\
+\ex
+Heun法の局所離散化誤差は$\Delta^3$のオーダーである.\\
+$y(t_n) = y_n$という初期値問題の解を$y(t)$とおき,Heun法により$y_{n+1}$が求まったとする.\\
+$A(t) =a(t,y(t))$とおくと
+\eqa
+y(t_{n+1}) - y_n &=& \int_{t_n}^{t_{n+1}} A(s)ds\\
+&=& \int_{t_n}^{t_{n+1}} (A(t_n)+A'(t_n)(s-t_n)+\frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
+&=& a(t_n,y_n)\Delta_n + \frac{1}{2} A'(t_n) \Delta^2_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
+&=& \frac{1}{2} a(t_n,y_n)\Delta_n + \frac{1}{2} (a(t_n,y_n)+A'(t_{n+1})\Delta_n)\Delta_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds
+\eqax
+により,局所離散化誤差は
+$y(t_{n+1}) - y_n - \frac{1}{2} (a(t_n,y_n)+a(t_{n+1},y_{n+1}))\Delta_n $
+\[
+= -\frac{1}{2^2} A(\theta_n)\Delta^3_n + \frac{1}{2} \int_{t_n}^{t_{n+1}}  A''(\theta_n(s))(s-t_n)^2ds
+\]
+となって3次のオーダーであることがわかった.
+\exx
 \defb
 一段法(\ref{eq32})が微分方程式(\ref{eq31})に対して{\bf 整合的}であるとは,\\
 \[
@@ -500,6 +517,22 @@ y_n = (1+\lambda\Delta)y_0
 \]
 が得られ,これがオイラー法の絶対安定領域である.
 \exx
+\ex
+同様に台形法の絶対安定領域を考える.\\
+\[
+y_{n+1} = y_n + \frac{1}{2} \lambda \Delta y_n +  \frac{1}{2} \lambda \Delta y_{n+1}
+\]
+であるので,これを移行して
+\[
+y_{n+1} = \frac{1+ \frac{1}{2} \lambda \Delta}{1- \frac{1}{2} \lambda \Delta}y_n
+\]
+であるので,絶対安定領域は,
+\[
+|1+ \frac{1}{2} \lambda \Delta| \le |1- \frac{1}{2} \lambda\Delta |
+\]
+となり,これは左半平面である.
+\exx
+
 \defb
 一段法(\ref{eq32})が{\bf A安定}であるとは,\\
 この一段法の絶対安定領域$R$が左半平面を含むことつまり,
