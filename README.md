@@ -10,7 +10,7 @@
 
 ##セミナー
 * 第一回(2016/09/26)
-[KP] Chapter8 p277〜
+[KP] Chapter8 p277〜 [PC-Exerciseの解答](https://github.com/KatsuyaITO/NSofSDE/blob/master/Chap8/PC-ExerciseChapter8.ipynb "PC-Exerciseの解答")
 
 ##備考
 * [jupyter notebook](https://ipython.org/index.html "jupyter notebook")をインストールすると簡単にpythonコードを実行･編集する事ができます.
