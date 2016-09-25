@@ -49,7 +49,7 @@
 \def\C{\mathbb C}
 \def\N{\mathbb N}
 \def\Z{\mathbb Z}
-
+\def\iff{\Leftrightarrow}
 \def\R{\mathbb R}
 \def\F{\mathcal F}
 \def\method{\begin{leftbar}\begin{Method}}
@@ -58,9 +58,9 @@
 \def\thmx{\end{Thm}\end{leftbar}}
 \def\prop{\begin{Prop}}
 \def\propx{\end{Prop}}
-\def\defb{\begin{Def}}
-\def\defe{\end{Def}}
-\def\defx{\end{Def}}
+\def\defb{\begin{leftbar}\begin{Def}}
+\def\defe{\end{Def}\end{leftbar}}
+\def\defx{\end{Def}\end{leftbar}}
 \newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
 \def\rem{\begin{Rem}}
 \def\remx{\end{Rem}}
@@ -88,15 +88,49 @@
 \newcommand{\Coker}{\mathop{\mathrm{Coker}}\nolimits}
 \newcommand{\vol}{\mathop{\mathrm{vol}}\nolimits}
 \newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
-\title{Numerical Solution of Stochastic Differential Equations}
+\title{平成28年度数学特別講究\\Numerical Solution of Stochastic Differential Equations}
+\author{伊藤克哉}
 \usepackage{makeidx}
 \makeindex
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null
+    \vskip 50\p@
+    \begin{center}
+      \hrule height 1pt
+      \vskip 2pt 
+      \hrule
+      \vskip 3pt
+      {\huge \bfseries \strut \@title \strut}\par
+      \vskip 2pt
+      \hrule
+      \vskip 2pt
+      \hrule height 1pt
+    \end{center}
+    \vskip 50\p@
+    \begin{flushright}
+      \Large \@author \par
+    \end{flushright}
+    \vfil
+    \null
+    \begin{flushright}
+        {\small \@date}%
+    \end{flushright}
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+\makeatother
 
 \begin{document}
 \maketitle
 \tableofcontents
 \leavevmode \\
-\chapter{決定論的微分方程式の時間離散近似}
+\chapter{常微分方程式の時間離散近似}
 \section{Introduction}
 \eq
 \label{eq1}
@@ -313,5 +347,189 @@ $\beta_0 \neq 0$のとき,これをimplicitな方法と呼ぶ.
 \eq y_{n+1} = y_{n} + \frac{1}{12}\{ 5a(t_{n+1},y_{n+1})+ 8a(t_{n},y_{n}) - a(t_{n-1},y_{n-1})\} \Delta \eqx
 
 \exx
+
+\section{近似方法の性質}
+今までに挙げた常微分方程式の近似方法について,幾つかの性質を上げて,それらの性質のつながりを見る.
+\defb
+微分方程式の初期値問題と$t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という離散化に対して,
+ある近似方法によって$y_0,y_1,\cdots,y_n,\cdots$という近似解が得られたとする.
+ここで,$x(t;t_n,y_n)$を$x(t_n)=y_n$という初期値問題の解とおく.このとき,
+\eq
+l_{n+1} := x(t_{n+1};t_n,y_n) - y_{n+1}
+\eqx
+\eq
+e_{n+1} := x(t_{n+1};t_0,x_0) - y_{n+1}
+\eqx
+として,$l_{n+1},e_{n+1}$をそれぞれ\bf{局所・大域離散化誤差}と呼ぶ.
+\defx
+
+ここで,Euler法(\ref{eq2})
+\[
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n,\  \  y_0 = x_0
+\]
+
+の離散化誤差を幾つかの不等式評価によって評価することを考える.\\
+まず,局所離散化誤差$l_{n+1}$の評価をする.これは,$x(t)$が$C^2$級であることを仮定すると以下のテイラーの定理により,
+\[
+x(t_{n+1}) = x(t_n) + \dot{x}(t_n)\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+を満たすような$\theta_n \in [t_n , t_{n+1}]$が存在する.ここで,\\
+\[
+\dot{x}(t_n) = a(t_n,x(t_n))  , \ x(t_n) = y_n \ 
+\]
+ということに着目すると,
+\[
+x(t_{n+1};t_n,y_n) = x(t_n) + a(t_n,x(t_n))\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+により,
+\eq
+l_{n+1} = \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\eqx
+を得る.ここで,$ |\ddot{x}(t)| < M$なる$M>0$が存在すれば,
+\eq
+|l_{n+1}| \le  \frac{1}{2!} M \Delta_n^2
+\eqx
+であるという評価が得られる.ここで,
+\[
+\ddot{x} = a_t + a_x a
+\]
+であることを考えると,
+\[
+M = \max|a_t| + \max |a_x a|
+\]
+であることが分かる.今,微分方程式を有界閉領域上で考えているとするとこのような$M$は(かなり無駄な不等式評価となるが,有限で)必ず存在するので,Euler法の局所離散化誤差は$\Delta_n^2$のオーダーであることが分かる.\par
+
+次にEuler法の大域離散化誤差$l_{n+1}$の評価について考える.\\
+まず,$a=a(t,x)$は一様Lipschitz条件を満たしており,
+\[
+|a(t,x) - a(t,y)| \le K |x-y|
+\]
+をみたすような$K$が一様に存在しているとする.\\
+また簡単のために間隔$\Delta_n = t_{n+1} -t_n$は一定で$\Delta$であるとする.ここで再び
+\[
+x(t_{n+1}) = x(t_n) + \dot{x}(t_n)\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+というテイラーの定理に対して,$y_{n+1} = y_n + a(t_n,y_n)\Delta $を両辺から引くことによって,
+\[
+e_{n+1} = e_n + (a(t_n,x(t_n))-a(t_n,y_n))\Delta + \frac{1}{2!} \ddot{x}(\theta_n)\Delta^2
+\]
+が得られ,Lipschitz条件を考えると,両辺の絶対値は,
+\[
+|e_{n+1}| \le |e_n| + K|e_n|\Delta + \frac{1}{2!} M\Delta^2
+\]
+という形で不等式評価することができる.これを帰納的に用いることによって,最終的に$e_0 = x_0 - y_0 = 0$になるので,
+\[
+|e_{n+1}| \le \frac{1}{2} \left( \frac{(1+K\Delta)^n -1 }{(1+K\Delta)-1} \right)M\Delta^2 \le
+\frac{1}{2} (e^{nK\Delta} -1) \frac{M}{K}\Delta
+\]
+であるので,Euler法の大域離散化誤差は$\Delta$のオーダであることが分かる.\par
+次に一般の一段法について整合性,安定性,収束といった性質を紹介する.\\
+一段法とは,
+\eq
+\label{eq31}
+\dot{x} = \frac{dx}{dt} = a(t,x), \  \  x(t_0) = x_0
+\eqx
+という微分方程式の初期値問題に対して
+\eq
+\label{eq32}
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+という式によって近似解を求める方法であった.\\
+\defb
+一段法(\ref{eq32})が微分方程式(\ref{eq31})に対して整合的であるとは,\\
+\[
+\Psi(t,y,0)  = a(t,x)
+\]
+をみたすということである
+\defx
+
+\defb
+一段法(\ref{eq32})が収束するとは,$\Delta =\max_n \Delta_n$とおいて, $\Delta$を$0$に近づけると,
+大域離散化誤差$e_{n+1}$が$0$に収束するということであり,つまり\\
+\[
+\lim_{\Delta \downarrow 0} |e_{n+1}| = 0
+\]
+をみたすということである
+\defx
+
+\defb
+一段法(\ref{eq32})が数値的に安定であるとは,任意の区間$[t_0,T]$と任意のLipschitz条件を満たす$a(t,x)$に対して,
+ある$\Delta_0$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_0$を満たす離散化の数値解に対して,
+\[
+|y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
+\]
+をみたすということである
+\defx
+
+\defb
+一段法(\ref{eq32})が漸近的に数値的安定であるとは,任意の$a(t,x)$に対して,
+ある$\Delta_a$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_a$を満たす離散化の数値解に対して,
+\[
+\lim_{n\to\infty}|y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
+\]
+をみたすということである
+\defx
+
+ここで数値的安定性に対して,更に新しい考え方を導入する.
+\defb
+一段法(\ref{eq32})の絶対安定領域とは次のような複素平面上の領域$R$である.
+\\
+$\lambda \Delta \in R \iff $
+\[
+\frac{dx}{dt} = \lambda x
+\]
+という複素微分方程式を考え,
+間隔$\Delta$の離散化に対する数値解$y_n$が任意の初期値$x_0$に対して
+\[
+\lim_{n\to\infty} y_n = 0
+\]
+を満たす
+\defx
+\ex
+Euler法の絶対安定領域を考える.\\
+\[
+\frac{dx}{dt} = \lambda x
+\]
+に対して,Euler法を実行すると,\\
+\[
+y_n = (1+\lambda\Delta)y_0
+\]
+が得られる.よって任意の$y_0$に対して$y_n$が収束するためには,
+\[
+|1+\lambda\Delta| \le 1
+\]
+が得られ,これがオイラー法の絶対安定領域である.
+\exx
+\defb
+一段法(\ref{eq32})がA安定であるとは,\\
+この一段法の絶対安定領域$R$が左半平面を含むことつまり,
+\[
+\{z \in \C | \Re z < 0 \} \subset R
+\]
+であるということである.
+\defx
+これから,これらの一見無関係に見える近似法の性質の関係を示す.
+\thm
+一段法のincrement function $\Psi$が大域Lipschitz条件を満たし,大域的に有界であるとする.
+つまり,
+\[
+|\Psi(t',y',\Delta') -\Psi(t,y,\Delta)| \le K (|t'-t| + |x'-x| + |\Delta' - \Delta|)
+\]
+を満たすような$K$が存在し,
+\[
+\Psi(t,y,0) \le L
+\]
+を満たすような$L$が存在するとする.このとき,一段法の収束性と整合性は同値である.
+\thmx
+\thm
+一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすとする.\\
+このとき,局所離散化誤差$l_{n+1}$が$\Delta^{p+1}$のオーダであるならば,大域離散化誤差$e_{n+1}$は$\Delta^{p}$のオーダである.
+\thmx
+
+\thm
+一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすことと一段法が数値的安定であることは同値である.
+\thmx
+
+
 
 \end{document}
