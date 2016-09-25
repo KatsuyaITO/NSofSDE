@@ -360,7 +360,7 @@ l_{n+1} := x(t_{n+1};t_n,y_n) - y_{n+1}
 \eq
 e_{n+1} := x(t_{n+1};t_0,x_0) - y_{n+1}
 \eqx
-として,$l_{n+1},e_{n+1}$をそれぞれ\bf{局所・大域離散化誤差}と呼ぶ.
+として,$l_{n+1},e_{n+1}$をそれぞれ{\bf 局所・大域離散化誤差}と呼ぶ.
 \defx
 
 ここで,Euler法(\ref{eq2})
@@ -436,7 +436,7 @@ y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
 \eqx
 という式によって近似解を求める方法であった.\\
 \defb
-一段法(\ref{eq32})が微分方程式(\ref{eq31})に対して整合的であるとは,\\
+一段法(\ref{eq32})が微分方程式(\ref{eq31})に対して{\bf 整合的}であるとは,\\
 \[
 \Psi(t,y,0)  = a(t,x)
 \]
@@ -444,7 +444,7 @@ y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
 \defx
 
 \defb
-$\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が収束するとは,
+$\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が{\bf 収束}するとは,
 任意の有界区間$[t_0,T]$において,$\Delta$を$0$に近づけると,大域離散化誤差$e_{n+1}$が$0$に収束するということであり,つまり\\
 \[
 \lim_{\Delta \downarrow 0} |e_{n+1}| = 0
@@ -453,7 +453,7 @@ $\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が収束するとは,
 \defx
 
 \defb
-一段法(\ref{eq32})が数値的に安定であるとは,任意の区間$[t_0,T]$と任意のLipschitz条件を満たす$a(t,x)$に対して,
+一段法(\ref{eq32})が{\bf 数値的に安定}であるとは,任意の区間$[t_0,T]$と任意のLipschitz条件を満たす$a(t,x)$に対して,
 ある$\Delta_0$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_0$を満たす離散化の数値解に対して,
 \[
 |y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
@@ -462,7 +462,7 @@ $\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が収束するとは,
 \defx
 
 \defb
-一段法(\ref{eq32})が漸近的に数値的安定であるとは,任意の$a(t,x)$に対して,
+一段法(\ref{eq32})が{\bf 漸近的に数値的安定}であるとは,任意の$a(t,x)$に対して,
 ある$\Delta_a$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_a$を満たす離散化の数値解に対して,
 \[
 \lim_{n\to\infty}|y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
@@ -472,7 +472,7 @@ $\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が収束するとは,
 
 ここで数値的安定性に対して,更に新しい考え方を導入する.
 \defb
-一段法(\ref{eq32})の絶対安定領域とは次のような複素平面上の領域$R$である.
+一段法(\ref{eq32})の{\bf 絶対安定領域}とは次のような複素平面上の領域$R$である.
 \\
 $\lambda \Delta \in R \iff $
 \[
@@ -501,7 +501,7 @@ y_n = (1+\lambda\Delta)y_0
 が得られ,これがオイラー法の絶対安定領域である.
 \exx
 \defb
-一段法(\ref{eq32})がA安定であるとは,\\
+一段法(\ref{eq32})が{\bf A安定}であるとは,\\
 この一段法の絶対安定領域$R$が左半平面を含むことつまり,
 \[
 \{z \in \C | \Re z < 0 \} \subset R
