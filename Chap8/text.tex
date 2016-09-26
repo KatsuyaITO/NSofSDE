@@ -443,12 +443,16 @@ $A(t) =a(t,y(t))$とおくと
 y(t_{n+1}) - y_n &=& \int_{t_n}^{t_{n+1}} A(s)ds\\
 &=& \int_{t_n}^{t_{n+1}} (A(t_n)+A'(t_n)(s-t_n)+\frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
 &=& a(t_n,y_n)\Delta_n + \frac{1}{2} A'(t_n) \Delta^2_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
-&=& \frac{1}{2} a(t_n,y_n)\Delta_n + \frac{1}{2} (a(t_n,y_n)+A'(t_{n+1})\Delta_n)\Delta_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds
+&=& \frac{1}{2} a(t_n,y_n)\Delta_n + \frac{1}{2} (a(t_n,y_n)+A'(t_{n})\Delta_n)\Delta_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds
 \eqax
-により,局所離散化誤差は
+により,ここでテイラーの定理より,
+\[
+a(t_n,y_n) = a(t_{n+1},y_{n+1}) - A'(t_n)\Delta_n - \frac{1}{2!} A''(\theta_n)\Delta_n^2
+\]
+なる$\theta_n\in [t_n , t_{n+1}]$を取ることができて,局所離散化誤差は
 $y(t_{n+1}) - y_n - \frac{1}{2} (a(t_n,y_n)+a(t_{n+1},y_{n+1}))\Delta_n $
 \[
-= -\frac{1}{2^2} A(\theta_n)\Delta^3_n + \frac{1}{2} \int_{t_n}^{t_{n+1}}  A''(\theta_n(s))(s-t_n)^2ds
+= -\frac{1}{2^2} A''(\theta_n)\Delta^3_n + \frac{1}{2} \int_{t_n}^{t_{n+1}}  A''(\theta_n(s))(s-t_n)^2ds
 \]
 となって3次のオーダーであることがわかった.
 \exx
@@ -471,7 +475,7 @@ $\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が{\bf 収束}すると
 
 \defb
 一段法(\ref{eq32})が{\bf 数値的に安定}であるとは,任意の区間$[t_0,T]$と任意のLipschitz条件を満たす$a(t,x)$に対して,
-ある$\Delta_0$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_0$を満たす離散化の数値解に対して,
+ある$\Delta_0$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という$\Delta =\max_n \Delta_n < \Delta_0$を満たす離散化の初期値$y_0,\tilde{y}_0$に対応する数値解に対して,
 \[
 |y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
 \]
@@ -550,7 +554,7 @@ y_{n+1} = \frac{1+ \frac{1}{2} \lambda \Delta}{1- \frac{1}{2} \lambda \Delta}y_n
 \]
 を満たすような$K$が存在し,
 \[
-\Psi(t,y,0) \le L
+|\Psi(t,y,0)| \le L
 \]
 を満たすような$L$が存在するとする.このとき,一段法の収束性と整合性は同値である.
 \thmx
@@ -628,7 +632,7 @@ $\Psi$が大域Lipschitz条件を満たすと仮定する.
 $y_n , \tilde{y}_n$という任意の解に対して,
 \eqa
 |y_{n+1} - \tilde{y}_{n+1}| & \le & |y_n - \tilde{y}_n + \Delta(\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta)) | \\
-& \le & |y_n - \tilde{y}_n| + \Delta |\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta| \\
+& \le & |y_n - \tilde{y}_n| + \Delta |\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta)| \\
 & \le & (1+K\Delta) |y_n - \tilde{y}_n| 
 \eqax
 をみたすので,$M = (1+K\Delta)^{n_T}$とおけば数値的安定性が示せる.
