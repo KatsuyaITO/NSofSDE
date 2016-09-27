@@ -1,0 +1,1868 @@
+\documentclass[a4paper,dvipdfmx]{jreport}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{framed}
+\usepackage{color}
+
+\def\qedsymbol{$\square$}
+\def\proofname{\gt{証明}\;}
+\newenvironment{Proof}{\par\noindent{\it\proofname}}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\newenvironment{Proof*}{\par\noindent}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\ifx\undefined\bysame \newcommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\,}\fi
+%
+\numberwithin{equation}{section}
+\newtheorem{Thm}     {定理}[section]
+\newtheorem{Lemma}   [Thm]{補題}
+\newtheorem{Def}     [Thm]{定義}
+\newtheorem{Prop}    [Thm]{命題}
+\newtheorem{Fact}    [Thm]{事実}
+\newtheorem{Cor}     [Thm]{系}  
+\newtheorem{Conj}    [Thm]{予想}
+\newtheorem{Ex}      [Thm]{例}  
+\newtheorem{Achiom}   [Thm]{公理}
+\newtheorem{Method}[Thm]{方法} 
+\newtheorem{Rem}  [Thm]{注意}
+\newtheorem{Notation}[Thm]{記法}
+\newtheorem{Symbol}  [Thm]{記号}
+\newtheorem{Prob}    [Thm]{問題}
+\makeatletter
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{\vrule width 1pt \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+\makeatother
+
+\newenvironment{redleftbar}{%
+  \def\FrameCommand{\textcolor{red}{\vrule width 1pt} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{lightgrayleftbar}{%
+  \def\FrameCommand{\textcolor{lightgray}{\vrule width 1zw} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\def\C{\mathbb C}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+\def\iff{\Leftrightarrow}
+\def\R{\mathbb R}
+\def\F{\mathcal F}
+\def\method{\begin{leftbar}\begin{Method}}
+\def\methodx{\end{Method}\end{leftbar}}
+\def\thm{\begin{leftbar}\begin{Thm}}
+\def\thmx{\end{Thm}\end{leftbar}}
+\def\prop{\begin{Prop}}
+\def\propx{\end{Prop}}
+\def\defb{\begin{leftbar}\begin{Def}}
+\def\defe{\end{Def}\end{leftbar}}
+\def\defx{\end{Def}\end{leftbar}}
+\newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
+\def\rem{\begin{Rem}}
+\def\remx{\end{Rem}}
+\def\prob{\begin{Prob}}
+\def\probx{\end{Prob}}
+\def\lem{\begin{Lemma}}
+\def\lemx{\end{Lemma}}
+\def\ex{\begin{Ex}}
+\def\exx{\end{Ex}}
+\def\cor{\begin{Cor}}
+\def\corx{\end{Cor}}
+\def\proof{\begin{Proof}}
+\def\proofx{\end{Proof}}
+\def\eq{\begin{equation}}
+\def\eqx{\end{equation}}
+\def\eqa{\begin{eqnarray}}
+\def\eqax{\end{eqnarray}}
+\def\a{\alpha}
+\def\lmd{\lambda}
+\def\omg{\omega}
+\def\Lmd{\Lambda}
+\def\Omg{\Omega}
+\newcommand{\Image}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}\nolimits}
+\newcommand{\Coker}{\mathop{\mathrm{Coker}}\nolimits}
+\newcommand{\vol}{\mathop{\mathrm{vol}}\nolimits}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
+\title{平成28年度数学特別講究\\Numerical Solution of Stochastic Differential Equations}
+\author{伊藤克哉}
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    \usepackage{tikz} % Needed to box output/input
+    \usepackage{scrextend} % Used to indent output
+    \usepackage{needspace} % Make prompts follow contents
+    \usepackage{framed} % Used to draw output that spans multiple pages
+
+
+    
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % NB prompt colors
+    \definecolor{nbframe-border}{rgb}{0.867,0.867,0.867}
+    \definecolor{nbframe-bg}{rgb}{0.969,0.969,0.969}
+    \definecolor{nbframe-in-prompt}{rgb}{0.0,0.0,0.502}
+    \definecolor{nbframe-out-prompt}{rgb}{0.545,0.0,0.0}
+
+    % NB prompt lengths
+    \newlength{\inputpadding}
+    \setlength{\inputpadding}{0.5em}
+    \newlength{\cellleftmargin}
+    \setlength{\cellleftmargin}{0.15\linewidth}
+    \newlength{\borderthickness}
+    \setlength{\borderthickness}{0.4pt}
+    \newlength{\smallerfontscale}
+    \setlength{\smallerfontscale}{9.5pt}
+
+    % NB prompt font size
+    \def\smaller{\fontsize{\smallerfontscale}{\smallerfontscale}\selectfont}
+
+    % Define a background layer, in which the nb prompt shape is drawn
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main}
+    \usetikzlibrary{calc}
+
+    % define styles for the normal border and the torn border
+    \tikzset{
+      normal border/.style={draw=nbframe-border, fill=nbframe-bg,
+        rectangle, rounded corners=2.5pt, line width=\borderthickness},
+      torn border/.style={draw=white, fill=white, line width=\borderthickness}}
+
+    % Macro to draw the shape behind the text, when it fits completly in the
+    % page
+    \def\notebookcellframe#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};% Draw the text of the node
+      \begin{pgfonlayer}{background}% Draw the shape behind
+      \fill[normal border]%
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \end{pgfonlayer}}}%
+
+    % Macro to draw the shape, when the text will continue in next page
+    \def\notebookcellframetop#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};    % Draw the text of the node
+      \begin{pgfonlayer}{background}    
+      \fill[normal border]              % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]                % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when the text continues from previous page
+    \def\notebookcellframebottom#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when both the text continues from previous page
+    % and it will continue in next page
+    \def\notebookcellframemiddle#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Define the environment which puts the frame
+    % In this case, the environment also accepts an argument with an optional
+    % title (which defaults to ``Example'', which is typeset in a box overlaid
+    % on the top border
+    \newenvironment{notebookcell}[1][0]{%
+      \def\FrameCommand{\notebookcellframe}%
+      \def\FirstFrameCommand{\notebookcellframetop}%
+      \def\LastFrameCommand{\notebookcellframebottom}%
+      \def\MidFrameCommand{\notebookcellframemiddle}%
+      \par\vspace{1\baselineskip}%
+      \MakeFramed {\FrameRestore}%
+      \noindent\tikz\node[inner sep=0em] at ($(A.north west)-(0,0)$) {%
+      \begin{minipage}{\cellleftmargin}%
+    \hfill%
+    {\smaller%
+    \tt%
+    \color{nbframe-in-prompt}%
+    In[#1]:}%
+    \hspace{\inputpadding}%
+    \hspace{2pt}%
+    \hspace{3pt}%
+    \end{minipage}%%
+      }; \par}%
+    {\endMakeFramed}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null
+    \vskip 50\p@
+    \begin{center}
+      \hrule height 1pt
+      \vskip 2pt 
+      \hrule
+      \vskip 3pt
+      {\huge \bfseries \strut \@title \strut}\par
+      \vskip 2pt
+      \hrule
+      \vskip 2pt
+      \hrule height 1pt
+    \end{center}
+    \vskip 50\p@
+    \begin{flushright}
+      \Large \@author \par
+    \end{flushright}
+    \vfil
+    \null
+    \begin{flushright}
+        {\small \@date}%
+    \end{flushright}
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+\makeatother
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+\chapter{常微分方程式の時間離散近似}
+\section{Introduction}
+\eq
+\label{eq1}
+\dot{x} = \frac{dx}{dt} = a(t,x), \  \  x(t_0) = x_0
+\eqx
+というような(決定論的)微分方程式の初期値問題を解くことは多くの場面において必要となるが,一般にこの微分方程式の解$x = x(t;t_0,x_0)$を明示的に求めることは出来ない.また解が見つかったとしても,明示的でなかったり数値解析の視点からすると複雑で計算や描画に不向きであることが多い.\par
+ここで広く使われている方法が{\bf 時間離散近似} である.
+時間離散近似は,与えられた時間離散化 $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $に対して,
+解$x(t_1;t_0,x_0),x(t_2;t_0,x_0),\cdots,x(t_n;t_0,x_0),\cdots$を近似するような,
+$y_1,y_2,\cdots,y_n,\cdots$を生成する方程式である.この章ではまずこれらの近似方法の一覧を示し,次にその離散化誤差,整合性,安定性,収束といった性質を示す.
+\section{時間離散近似方法}
+(\ref{eq1})
+のような初期値問題を解くときに一番シンプルな方法が以下のEuler法である.
+\method[Euler法]
+{\bf Euler法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq2}
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.
+\methodx
+\ex
+\label{ex1}
+Euler法$(\Delta = 2^{-3} ,2^{-5})$を次の微分方程式の初期値問題に適応する.
+\[
+\frac{dx}{dt} = -5x , x(0) = 1,\   0 \le t \le 1 
+\]
+\exx
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{math}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a811}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+\ex
+例 \ref{ex1} と同じ微分方程式の初期値問題に対して,Euler法の$t=1$での大域離散化誤差を計算する.
+離散化の間隔は$\Delta = 1,2^{-1},2^{-2},\cdots,2^{-13}$とする.各計算において,数値を有効数字$5$桁で丸める.
+表は,$y$軸に$\log_2$の大域誤差,$x$軸に$\log_2 \Delta$をとってプロットした.\\
+ただし,大域離散化の定義は,$(\ref{eq_error})$を参照.
+
+\exx
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{roundoff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{format}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{roundoff}\PY{p}{(}\PY{n}{delta}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+
+次に,このEuler法を更に精度を上げるために以下の台形法を用いる.
+\method[台形法]
+{\bf 台形法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq3}
+y_{n+1} = y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},y_{n+1}) \} \Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.
+\methodx
+この方法は$y_{n+1}$という不定値が両辺に含まれているため{\bf implicit}な方法と呼ばれる.一般にはこの不定値は移行することが出来ないので計算が複雑になることがある.故にそれを修正したのが,以下の修正台形法である.
+\method[修正台形法]
+{\bf 修正台形法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eqa
+\label{eq4}
+\bar{y}_{n+1} &=& y_n + a(t_n,y_n)\Delta_n  \\
+\label{eq5}
+y_{n+1} &=& y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},\bar{y}_{n+1}) \} \Delta_n 
+\eqax
+によって与える.つまり,$\bar{y}_{n+1}$を下の式に代入して,
+\eq
+\label{eq6}
+y_{n+1} = y_n + \frac{1}{2} \{ a(t_n,y_n) + a(t_{n+1},y_n + a(t_n,y_n)\Delta_n) \} \Delta_n
+\eqx
+によって与えられる.
+\methodx
+修正台形法は,{\bf improved Euler法}や{\bf Heun法}とも呼ばれている.
+また,このような方法は{\bf 予測子修正子法}と呼ばれている.というのは,
+一度(\ref{eq4})で予測子$\bar{y}_{n+1}$を計算し,それを(\ref{eq5})のような式に代入して修正子$y_{n+1}$を得ているからである.\par
+
+\ex
+例 \ref{ex1} と同じ微分方程式の初期値問題に対して,修正台形法の$t=1$での大域離散化誤差を計算する.
+離散化の間隔は同様に$\Delta = 1,2^{-1},2^{-2},\cdots,2^{-13}$とする.
+\exx
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+ここで今まで上げたような方法を一般化して次の方法を得る.
+\method[一段法]
+{\bf 一段法}は $ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq7}
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+によって与える.$\Psi(t,y,\Delta)$のことをincrement functionという.
+\methodx
+例えばEuler法(\ref{eq2})では$\Psi(t,y,\Delta) = a(t,x)$であり,Heun法(\ref{eq6})では
+$\Psi(t,y,\Delta) = \frac{1}{2} \{ a(t,y) + a(t+\Delta ,y + a(t,y)\Delta) \}$であった.これまで上げた方法は全て一段法であったが,それとは別の多段法を紹介する.
+\method[Adams-Bashford法]
+{\bf Adams-Bashford法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta = t_{n+1} - t_{n}$ が一定な離散化に対して,近似解を
+\eq
+\label{eq8}
+y_{n+1} = y_n + \frac{1}{12} \{ 23 a(t_n , y_n) - 16 a(t_{n-1},y_{n-1}) + 5 a(t_{n-2},y_{n-2}) \} \Delta
+\eqx
+によって与える.
+\methodx
+これは,$y_{n+1}$を求めるために$y_n , y_{n-1} , \cdots , y_{n-k} $を必要としているために多段法と呼ばれている.例えばAdams-Bashford法は3段法である.3段法において,計算を始めるためには,$y_0,y_1,y_2$を求める必要があるが,これらは一段法によって計算される.\par
+
+\ex
+例 \ref{ex1} と同じ微分方程式の初期値問題に対して,Adams-Bashford法の$t=1$での大域離散化誤差を計算する.
+離散化の間隔は同様に$\Delta = 1,2^{-1},2^{-2},\cdots,2^{-13}$として,最初の項は修正台形法でもって計算する.
+\exx
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{23}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{16}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{+}  \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12} \PY{o}{*}\PY{n}{delta}\PY{p}{)}
+
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adams Bashford Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+
+また更に高い精度を得るために次のように,既存の方法を反復するような方法を紹介する.
+
+\method[Richardson反復法]
+間隔$\Delta = T/N$によって$[0,T]$が等間隔に$N$等分されており,その離散化に対してEuler法を適用する場合を考える.
+$y_N(\Delta)$を$\Delta$間隔で離散化したときの近似解の$\Delta N$での値とする.
+$x(T)$を$T$での真の解の値とする.このとき
+\eq
+y_N(\Delta) = x(T) + e(T) \Delta + O(\Delta^2)
+\eqx
+が成り立っており,また,$2N$等分して離散化したときのことを考えると,
+\eq
+y_{2N}(\frac{1}{2}\Delta) = x(T) + \frac{1}{2} e(T) \Delta + O(\Delta^2)
+\eqx
+が成り立っている.$e(T)$を消去することによって,
+\eq
+x(T) = 2y_{2N}(\frac{1}{2}\Delta) - y_N(\Delta) + O(\Delta^2)
+\eqx
+を得るので,
+\eq
+Z_N(\Delta) = 2y_{2N}(\frac{1}{2}\Delta) - y_N(\Delta)
+\eqx
+とすることによって近似を得る.これをRichardson反復法という.
+\methodx
+\ex
+Richardson反復法とEuler法の$t=1$での誤差を次の微分方程式の初期値問題に対して比べる.
+\[
+\frac{dx}{dt} = -x , \ x(0) = 1
+\]
+\exx
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a817}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{x}
+
+\PY{k}{def} \PY{n+nf}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{method}\PY{p}{)}\PY{p}{:}
+    \PY{n}{yN} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{n}{y2N} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y2N} \PY{o}{\PYZhy{}} \PY{n}{yN}
+
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{,}\PY{n}{euler\PYZus{}method}\PY{p}{)}\PY{p}{)}
+\PY{n}{richardson\PYZus{}y} \PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{richardson\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Richardson extrapolation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+
+ここで,$a$に条件を課せば,次のTaylorの定理が成り立っていることに着目する.
+\thm[Taylorの定理]
+$x(t)$は$p+1$回連続微分可能であるとする.このとき,
+$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,
+\eq
+\label{eq21}
+x(t_{n+1}) = x(t_n) + \frac{dx}{dt}(t_n)\Delta_n + \cdots + 
+\frac{1}{p!}\frac{d^px}{dt^p}(t_n)\Delta^p_n + \frac{1}{(p+1)!}\frac{d^{p+1}x}{dt^{p+1}}(\theta_n)\Delta^{p+1}_n
+\eqx
+を満たすような$t_n < \theta_n < t_{n+1}$が存在する.
+\thmx
+そして,微分方程式
+\eq
+\label{eq22}
+\dot{x} = \frac{dx}{dt} = a(t,x(t))
+\eqx
+に着目して,チェインルールを適応すれば,
+\eq
+\frac{dx}{dt} = a ,\frac{d^2x}{dt^2} = a_t + a_x a, 
+\frac{d^3x}{dt^3} = a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a, \cdots
+\eqx
+($t,x$での偏微分を省略して$a_t,a_x$と書いた)が成り立っているので,これらを代入して,剰余項を無視すれば次のようなTaylor近似が得られる.
+\method[Taylor近似]
+{\bf p次Taylor近似}は(\ref{eq22})をみたす微分方程式と$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+\label{eq23}
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\frac{da}{dt}(t_n,y_n) \Delta_n^2 + \cdots + \frac{1}{p!}\frac{d^{p-1}a}{dt^{p-1}}(t_n)\Delta^p_n
+\eqx
+によって与える.
+\methodx
+\ex
+例えば,$2$次Taylor近似は,
+\eq
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
+\eqx
+$3$次Taylor近似は,
+\eq
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
++\frac{1}{3!}\{ a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a \} \Delta_n^3
+\eqx
+によって与えられる.各々の偏微分には$(t_n,y_n)$を代入する.
+\exx
+\ex
+$2$次および$3$次のTaylor近似を以下の微分方程式の初期値問題に対して適応する.
+ただし,$\Delta = 2^{-3},2^{-2},\cdots,2^{-10}$である.
+\[
+\frac{dx}{dt} = tx(2-x) , \  x(0) = -1\ \  (0 \le t \le 0.5). 
+\]
+\exx
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{t}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{sol821}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}t821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}x821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}tt821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}tx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}xx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}
+
+\PY{k}{def} \PY{n+nf}{taylor\PYZus{}2nd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{)}\PY{p}{:}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+    
+\PY{k}{def} \PY{n+nf}{taylor\PYZus{}3rd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{,}\PY{n}{a\PYZus{}tt}\PY{p}{,}\PY{n}{a\PYZus{}tx}\PY{p}{,}\PY{n}{a\PYZus{}xx}\PY{p}{)}\PY{p}{:}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}
+                 \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} 
+                 \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} 
+                \PY{p}{(}\PY{n}{a\PYZus{}tt}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a\PYZus{}tx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}xx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{o}{+} \PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
+        
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}
+\PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{ans1} \PY{o}{=} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{taylor\PYZus{}2nd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{taylor\PYZus{}3rd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}2nd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}3rd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+
+しかし,これらのTaylor近似は,与えられた$a$に対して偏微分を計算しなければならないという点において実用的ではない.その場合には,
+\eq
+a_t(t_n,y_n) \approx \frac{a(t_{n+1},y_n) - a(t_n,y_n)}{\Delta_n},
+a_x(t_n,y_n) \approx \frac{a(t_n,y_{n+1}) - a(t_n,y_n)}{y_{n+1} -y_n}
+\eqx
+という近似を使って偏微分を計算すれば良い.また,$a_x$の計算には$y_{n+1}$が現れるが,
+それはEuler法等により予測すれば良い.\par
+\
+
+
+再び一段法について着目する.一段法はヒューリスティックに
+\eq
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n
+\eqx
+という式の$\Psi(t,y,\Delta)$を計算することが重要であったが,ここではその方法の典型的な例であるRunge-Kutta法について触れる.
+\method[2次Runge-Kutta法]
+{\bf 2次Runge-Kutta法}は 
+\eq
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+という一段法のincrement functionに対して,
+\eq
+\Psi(t,y,\Delta) = \alpha \: a(t,x) + \beta \: a(t+\gamma \Delta, x + \gamma a(t,x) \Delta)
+\eqx
+を代入することによって得られる.
+\methodx
+ここで,右辺を展開することによって,
+\[
+\Psi(t,y,\Delta) = (\alpha + \beta)a(t,x) + \gamma \beta(a_t + a_x a )\Delta
++ \frac{1}{2}  \gamma^2 \beta (a_{tt} + 2a_{tx}a + a_{xx}a^2)\Delta^2 + \cdots
+\]
+が得られる.ここで$3$次Taylor近似と各項を比較すると,
+\[
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n + \frac{1}{2!}\{ a_t + a_x a \} \Delta_n^2
++\frac{1}{3!}\{ a_{tt} + 2a_{tx}a + a_{xx}a^2 + a_ta_x +a_x^2 a \} \Delta_n^3
+\]
+\[
+\alpha + \beta = 1 ,\ \ \gamma \beta = \frac{1}{2}
+\]
+が得られる.一方で$\alpha = \beta = 1/2, \gamma =1$を代入するとこれはHeun法(\ref{eq6})となる.
+ここで更に$4$次のRunge-Kutta法について紹介する.
+\method[4次Runge-Kutta法]
+{\bf 4次Runge-Kutta法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という\\
+間隔 $\Delta_n = t_{n+1} - t_{n}$ の離散化に対して,近似解を
+\eq
+y_{n+1} = y_n + \frac{1}{6} \{ k_n^{(1)} +
+2k_n^{(2)}+ 2k_n^{(3)} +  k_n^{(4)} \} \Delta_n
+\eqx
+によって与える.ただし,
+\eqa
+ k_n^{(1)} &=&  a(t_n,y_n),\\
+ k_n^{(2)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(1)} \Delta_n\right),\\
+ k_n^{(3)} &=&  a\left(t_n+ \frac{1}{2} \Delta_n ,y_n + \frac{1}{2} k_n^{(2)} \Delta_n\right),\\
+ k_n^{(4)} &=&  a\left(t_{n+1} ,y_n + k_n^{(3)} \Delta_n\right)
+\eqax
+\methodx
+$4$次のRunge-Kutta法は,
+\[
+y_{n+1} - y_{n} = \int_{t_n}^{t_{n+1}} a(t) dt 
+\]
+に対してSimpsonの公式を当てはめて積分を計算しただけである.\\
+\ex
+$4$次のRunge-Kutta法を以下の微分方程式の初期値問題に対して適応する.
+ただし,$\Delta = 2^{-3},2^{-2},\cdots,2^{-10}$である.
+\[
+\frac{dx}{dt} = tx(2-x) , \  x(0) = -1\ \  (0 \le t \le 0.5). 
+\]
+\exx
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{k1} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{k2} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k1}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{k3} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k2}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{k4} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k3}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k3}\PY{o}{+}\PY{n}{k4}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
+        
+    \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}
+\PY{n}{exact\PYZus{}x} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}
+
+次に多段法についていくつかの例を紹介する.
+\method[一般の多段法]
+{\bf 多段法}は$ t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という間隔 $\Delta = t_{n+1} - t_{n}$ が一定な離散化に対して,近似解を
+\eq
+\label{eq29}
+y_{n+1} = \sum_{j=1}^k \alpha_j y_{n+1-j}
++ \sum_{j=0}^k \beta_j a(t_{n+1-j},y_{n+1-j})\Delta
+\eqx
+によって与える.ただし$\alpha_j,\beta_j$は定数である.
+\methodx
+\defb
+式(\ref{eq29})において,$\beta_0 = 0$のとき,これをexplicitな方法と呼び,
+$\beta_0 \neq 0$のとき,これをimplicitな方法と呼ぶ.
+\defx
+\ex
+多段法の例を3つ上げる.それぞれ近似解は次の式で与えられる.\\
+\bf{中点法}
+\eq y_{n+1} = y_{n-1} + 2a(t_n,y_n)\Delta \eqx
+\bf{Milne法}
+\eq y_{n+1} = y_{n-3} + \frac{4}{3}\{ 2a(t_n,y_n)- a(t_{n-1},y_{n-1}) + 2 a(t_{n-2},y_{n-2})\} \Delta \eqx
+\bf{Adams-Moulton法}
+\eq y_{n+1} = y_{n} + \frac{1}{12}\{ 5a(t_{n+1},y_{n+1})+ 8a(t_{n},y_{n}) - a(t_{n-1},y_{n-1})\} \Delta \eqx
+
+\exx
+
+\ex
+Euler法と中点法を次の微分方程式の初期値問題に対して適応する.ただし,$\Delta = 0.1$とする.\\
+\[
+\frac{dx}{dt} = -3x + 1 , \ x(0) = 1  (0 \le t \le 1).
+\]
+\exx
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a823}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{x} \PY{o}{+}\PY{l+m+mi}{1} 
+
+\PY{k}{def} \PY{n+nf}{sol823}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}
+
+\PY{k}{def} \PY{n+nf}{midpoint\PYZus{}method}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{,}\PY{n}{x0}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x0}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{]}
+    
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+            \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    
+    \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{midpoint\PYZus{}method}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{a823}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a823}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol823}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Midpoint Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%
+
+\section{近似方法の性質}
+今までに挙げた常微分方程式の近似方法について,幾つかの性質を上げて,それらの性質のつながりを見る.
+\defb
+微分方程式の初期値問題と$t_0 < t_1 < t_2 < \cdots < t_n < \cdots $ という離散化に対して,
+ある近似方法によって$y_0,y_1,\cdots,y_n,\cdots$という近似解が得られたとする.
+ここで,$x(t;t_n,y_n)$を$x(t_n)=y_n$という初期値問題の解とおく.このとき,
+\eq
+\label{eq_error}
+l_{n+1} := x(t_{n+1};t_n,y_n) - y_{n+1}
+\eqx
+\eq
+e_{n+1} := x(t_{n+1};t_0,x_0) - y_{n+1}
+\eqx
+として,$l_{n+1},e_{n+1}$をそれぞれ{\bf 局所・大域(離散化)誤差}と呼ぶ.
+\defx
+
+ここで,Euler法(\ref{eq2})
+\[
+y_{n+1} = y_n + a(t_n,y_n)\Delta_n,\  \  y_0 = x_0
+\]
+
+の離散化誤差を幾つかの不等式評価によって評価することを考える.\\
+まず,局所離散化誤差$l_{n+1}$の評価をする.これは,$x(t)$が$C^2$級であることを仮定すると以下のテイラーの定理により,
+\[
+x(t_{n+1}) = x(t_n) + \dot{x}(t_n)\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+を満たすような$\theta_n \in [t_n , t_{n+1}]$が存在する.ここで,\\
+\[
+\dot{x}(t_n) = a(t_n,x(t_n))  , \ x(t_n) = y_n \ 
+\]
+ということに着目すると,
+\[
+x(t_{n+1};t_n,y_n) = x(t_n) + a(t_n,x(t_n))\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+により,
+\eq
+l_{n+1} = \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\eqx
+を得る.ここで,$ |\ddot{x}(t)| < M$なる$M>0$が存在すれば,
+\eq
+|l_{n+1}| \le  \frac{1}{2!} M \Delta_n^2
+\eqx
+であるという評価が得られる.ここで,
+\[
+\ddot{x} = a_t + a_x a
+\]
+であることを考えると,
+\[
+M = \max|a_t| + \max |a_x a|
+\]
+であることが分かる.今,微分方程式を有界閉領域上で考えているとするとこのような$M$は(かなり無駄な不等式評価となるが,有限で)必ず存在するので,Euler法の局所離散化誤差は$\Delta_n^2$のオーダーであることが分かる.\par
+
+次にEuler法の大域離散化誤差$l_{n+1}$の評価について考える.\\
+まず,$a=a(t,x)$は一様Lipschitz条件を満たしており,
+\[
+|a(t,x) - a(t,y)| \le K |x-y|
+\]
+をみたすような$K$が一様に存在しているとする.\\
+また簡単のために間隔$\Delta_n = t_{n+1} -t_n$は一定で$\Delta$であるとする.ここで再び
+\[
+x(t_{n+1}) = x(t_n) + \dot{x}(t_n)\Delta_n + \frac{1}{2!} \ddot{x}(\theta_n)\Delta_n^2
+\]
+というテイラーの定理に対して,$y_{n+1} = y_n + a(t_n,y_n)\Delta $を両辺から引くことによって,
+\[
+e_{n+1} = e_n + (a(t_n,x(t_n))-a(t_n,y_n))\Delta + \frac{1}{2!} \ddot{x}(\theta_n)\Delta^2
+\]
+が得られ,Lipschitz条件を考えると,両辺の絶対値は,
+\[
+|e_{n+1}| \le |e_n| + K|e_n|\Delta + \frac{1}{2!} M\Delta^2
+\]
+という形で不等式評価することができる.これを帰納的に用いることによって,最終的に$e_0 = x_0 - y_0 = 0$になるので,
+\[
+|e_{n+1}| \le \frac{1}{2} \left( \frac{(1+K\Delta)^n -1 }{(1+K\Delta)-1} \right)M\Delta^2 \le
+\frac{1}{2} (e^{nK\Delta} -1) \frac{M}{K}\Delta
+\]
+であるので,Euler法の大域離散化誤差は$\Delta$のオーダーであることが分かる.\par
+次に一般の一段法について整合性,安定性,収束といった性質を紹介する.\\
+一段法とは,
+\eq
+\label{eq31}
+\dot{x} = \frac{dx}{dt} = a(t,x), \  \  x(t_0) = x_0
+\eqx
+という微分方程式の初期値問題に対して
+\eq
+\label{eq32}
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\eqx
+という式によって近似解を求める方法であった.\\
+\ex
+Heun法の局所離散化誤差は$\Delta^3$のオーダーである.\\
+$y(t_n) = y_n$という初期値問題の解を$y(t)$とおき,Heun法により$y_{n+1}$が求まったとする.\\
+$A(t) =a(t,y(t))$とおくと
+\eqa
+y(t_{n+1}) - y_n &=& \int_{t_n}^{t_{n+1}} A(s)ds\\
+&=& \int_{t_n}^{t_{n+1}} (A(t_n)+A'(t_n)(s-t_n)+\frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
+&=& a(t_n,y_n)\Delta_n + \frac{1}{2} A'(t_n) \Delta^2_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds\\
+&=& \frac{1}{2} a(t_n,y_n)\Delta_n + \frac{1}{2} (a(t_n,y_n)+A'(t_{n})\Delta_n)\Delta_n +  \int_{t_n}^{t_{n+1}}  \frac{1}{2} A''(\theta_n(s))(s-t_n)^2ds
+\eqax
+により,ここでテイラーの定理より,
+\[
+a(t_n,y_n) = a(t_{n+1},y_{n+1}) - A'(t_n)\Delta_n - \frac{1}{2!} A''(\theta_n)\Delta_n^2
+\]
+なる$\theta_n\in [t_n , t_{n+1}]$を取ることができて,局所離散化誤差は
+$y(t_{n+1}) - y_n - \frac{1}{2} (a(t_n,y_n)+a(t_{n+1},y_{n+1}))\Delta_n $
+\[
+= -\frac{1}{2^2} A''(\theta_n)\Delta^3_n + \frac{1}{2} \int_{t_n}^{t_{n+1}}  A''(\theta_n(s))(s-t_n)^2ds
+\]
+となって3次のオーダーであることがわかった.
+\exx
+\defb
+一段法(\ref{eq32})が微分方程式(\ref{eq31})に対して{\bf 整合的}であるとは,\\
+\[
+\Psi(t,y,0)  = a(t,x)
+\]
+をみたすということである
+\defx
+
+\defb
+$\Delta =\max_n \Delta_n$とおく.一段法(\ref{eq32})が{\bf 収束}するとは,
+任意の有界区間$[t_0,T]$において,$\Delta$を$0$に近づけると,大域離散化誤差$e_{n+1}$が$0$に収束するということであり,つまり\\
+\[
+\lim_{\Delta \downarrow 0} |e_{n+1}| = 0
+\]
+をみたすということである
+\defx
+
+\defb
+一段法(\ref{eq32})が{\bf 数値的に安定}であるとは,任意の区間$[t_0,T]$と任意のLipschitz条件を満たす$a(t,x)$に対して,
+ある$\Delta_0$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という$\Delta =\max_n \Delta_n < \Delta_0$を満たす離散化の初期値$y_0,\tilde{y}_0$に対応する数値解に対して,
+\[
+|y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
+\]
+をみたすということである
+\defx
+
+\defb
+一段法(\ref{eq32})が{\bf 漸近的に数値的安定}であるとは,任意の$a(t,x)$に対して,
+ある$\Delta_a$と$M$という正の定数が存在して,$y_n,\tilde{y}_n$という任意の$\Delta =\max_n \Delta_n < \Delta_a$を満たす離散化の数値解に対して,
+\[
+\lim_{n\to\infty}|y_n - \tilde{y}_n | \le M |y_0 - \tilde{y}_0| ,\ n = 0,1,\cdots,n_T
+\]
+をみたすということである
+\defx
+
+ここで数値的安定性に対して,更に新しい考え方を導入する.
+\defb
+一段法(\ref{eq32})の{\bf 絶対安定領域}とは次のような複素平面上の領域$R$である.
+\\
+$\lambda \Delta \in R \iff $
+\[
+\frac{dx}{dt} = \lambda x
+\]
+という複素微分方程式を考え,
+間隔$\Delta$の離散化に対する数値解$y_n$が任意の初期値$x_0$に対して
+\[
+\lim_{n\to\infty} y_n = 0
+\]
+を満たす
+\defx
+\ex
+Euler法の絶対安定領域を考える.\\
+\[
+\frac{dx}{dt} = \lambda x
+\]
+に対して,Euler法を実行すると,\\
+\[
+y_n = (1+\lambda\Delta)y_0
+\]
+が得られる.よって任意の$y_0$に対して$y_n$が収束するためには,
+\[
+|1+\lambda\Delta| < 1
+\]
+が得られ,これがオイラー法の絶対安定領域である.
+\exx
+\ex
+同様に台形法の絶対安定領域を考える.\\
+\[
+y_{n+1} = y_n + \frac{1}{2} \lambda \Delta y_n +  \frac{1}{2} \lambda \Delta y_{n+1}
+\]
+であるので,これを移行して
+\[
+y_{n+1} = \frac{1+ \frac{1}{2} \lambda \Delta}{1- \frac{1}{2} \lambda \Delta}y_n
+\]
+であるので,絶対安定領域は,
+\[
+|1+ \frac{1}{2} \lambda \Delta| < |1- \frac{1}{2} \lambda\Delta |
+\]
+となり,これは左半平面である.
+\exx
+
+\defb
+一段法(\ref{eq32})が{\bf A安定}であるとは,\\
+この一段法の絶対安定領域$R$が左半平面を含むことつまり,
+\[
+\{z \in \C | \Re z < 0 \} \subset R
+\]
+であるということである.
+\defx
+これから,これらの一見無関係に見える近似法の性質の関係を示す.
+\thm
+一段法のincrement function $\Psi$が大域Lipschitz条件を満たし,大域的に有界であるとする.
+つまり,
+\[
+|\Psi(t',y',\Delta') -\Psi(t,y,\Delta)| \le K (|t'-t| + |x'-x| + |\Delta' - \Delta|)
+\]
+を満たすような$K$が存在し,
+\[
+|\Psi(t,y,0)| \le L
+\]
+を満たすような$L$が存在するとする.このとき,一段法の収束性と整合性は同値である.
+\thmx
+\proof
+まず$\Psi$に対する仮定から大域離散化誤差$e_{n+1}$を評価を導く.微分方程式
+\[
+\frac{dz}{dt} = \Psi(t,z,0) ,\ z(t_0) = x_0
+\]
+はLipschitz条件から唯一つ解を持つ.この解は連続微分可能であるので,平均値の定理から,
+\[
+z(t_{n+1}) - z(t_n) = \Psi(t_n+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0) \Delta_n
+\]
+を満たすような$0 < \theta_n < 1$が存在する.$y_n$を初期値$y_0 = x_0$に対する一段法の近似解であるとする.
+つまり,以下を満たすとする.
+\[
+y_{n+1} = y_n + \Psi(t_n,y_n,\Delta_n) \Delta_n,\  \  y_0 = x_0
+\]
+$\bar{e}_{n} = y_n - z(t_n)$として定めると,辺々を引くことによって,
+
+\eqa
+\bar{e}_{n+1} &=& \bar{e}_{n} + (\Psi(t_n,y_n,\Delta_n) - \Psi(t+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0)) \Delta_n \\
+&=& \bar{e}_{n} + (\Psi(t_n,y_n,\Delta_n) -\Psi(t_n,z(t_n),0))\Delta_n  + (\Psi(t_n,z(t_n),0) - \Psi(t+\theta_n\Delta_n \,z(t_n+\theta_n\Delta_n,0),0)) \Delta_n 
+\eqax
+が得られる.ここでLipschitz条件を使うと,
+\[
+|\bar{e}_{n+1}| \le |\bar{e}_{n}| +K (|\bar{e}_{n}| + \Delta_n)\Delta_n + K(\theta_n\Delta_n + |z(t_n)
+- z(t_n+\theta_n\Delta_n,0) |)\Delta_n
+\]
+が得られる.$|z(t_n) - z(t_n+\theta_n\Delta_n,0) |$を最初の平均値の定理によって評価すると,
+\[
+|z(t_n) - z(t_n+\theta_n\Delta_n,0)| \le | \Psi(t_n+\bar{\theta}_n\theta_n\Delta_n \,z(t_n+\bar{\theta}_n\theta_n\Delta_n,0),0)| \theta_n \Delta_n \le L \theta_n \Delta_n
+\]
+とできる.ただし,$0<\bar{\theta}_n<1$これを代入することによって,
+\[
+|\bar{e}_{n+1}| \le (1+K\Delta)|\bar{e}_{n}| + K(L+2)\Delta^2 ,\ (\Delta = \max_n \Delta_n)
+\]
+を得る.故にこの不等式を帰納的に使うことによって,\\
+\[
+|\bar{e}_{n}| \le (L+2)(e^{K(T-t_0)}-1)\Delta
+\]
+が成り立つ.これにより,$y_n$は$z(t)$に収束することがわかった.\par
+ここで,整合性を仮定すると,$z(t)$は$dx/dt = a(t,x)$の唯一解であるので,$\bar{e}_n$がその大域離散化誤差となり収束性が示される.\par
+また,収束性を仮定すると$[t_0,T]$上で常に$z(t)=x(t)$である.一方で整合的でないと仮定すると$a(t_0,x_0) \neq \Psi(t_0,x_0,0)$となる点がある.これは,\[
+\frac{dx}{dt}(t_0) = a(t_0,x_0) \neq \Psi((t_0,x_0),0) = \frac{dz}{dt}(t_0)
+\]
+により,$z(t)=x(t)$に矛盾する.
+\proofx
+\thm
+一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすとする.\\
+このとき,局所離散化誤差$l_{n+1}$が$\Delta^{p+1}$のオーダーであるならば,大域離散化誤差$e_{n+1}$は$\Delta^{p}$のオーダーである.
+\thmx
+\proof
+この初期値問題の解を$x(t)$とおき,この一段法による近似解を$y_n$とおく.大域離散化誤差は定義から
+\eqa
+e_{n+1} &=& y_{n+1} - x(t_{n+1})\\
+&=& e_n + \Psi(t_n,y_n,\Delta_n) \Delta_n + x(t_n) - x(t_{n+1}) \\
+&=& e_n + (\Psi(t_n,y_n,\Delta_n) - \Psi(t_n,x(t_n),\Delta_n))\Delta_n +
+(\Psi(t_n,x(t_n),\Delta_n)\Delta_n + x(t_n) - x(t_{n+1}))
+\eqax
+今,仮定から$\Psi$は大域Lipschitz条件を満たし,局所離散化誤差,$x(t_{n+1};t_n,y_n) - y_{n+1}$は$\Delta^{p+1}$のオーダーであるので,
+\[
+|e_{n+1}| \le |e_n| + K|e_n|\Delta_n + D\Delta^{p+1}
+\]
+が得られ,これを帰納的に繰り返すことによって,$\max_n \Delta_n  = \Delta$とおいて
+\[
+|e_n| \le \frac{D}{K} (e^{K(T-t_0)} - 1)\Delta^p
+\]
+が成り立つ.
+\proofx
+\thm
+一段法のincrement function  $\Psi$が大域Lipschitz条件を満たすならば一段法は数値的安定である.
+\thmx
+\proof
+$\Psi$が大域Lipschitz条件を満たすと仮定する.
+$y_n , \tilde{y}_n$という任意の解に対して,
+\eqa
+|y_{n+1} - \tilde{y}_{n+1}| & \le & |y_n - \tilde{y}_n + \Delta(\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta)) | \\
+& \le & |y_n - \tilde{y}_n| + \Delta |\Psi(t_n,y_n,\Delta) - \Psi(t_n,\tilde{y}_n,\Delta)| \\
+& \le & (1+K\Delta) |y_n - \tilde{y}_n| 
+\eqax
+をみたすので,$M = (1+K\Delta)^{n_T}$とおけば数値的安定性が示せる.
+
+\proofx
+
+
+
+
+    
+\end{document}
