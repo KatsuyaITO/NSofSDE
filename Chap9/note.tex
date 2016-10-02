@@ -1,0 +1,1134 @@
+\documentclass[a4paper,dvipdfmx]{jreport}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{framed}
+\usepackage{color}
+
+\def\qedsymbol{$\square$}
+\def\proofname{\gt{証明}\;}
+\newenvironment{Proof}{\par\noindent{\it\proofname}}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\newenvironment{Proof*}{\par\noindent}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\ifx\undefined\bysame \newcommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\,}\fi
+%
+\numberwithin{equation}{section}
+\newtheorem{Thm}     {定理}[section]
+\newtheorem{Lemma}   [Thm]{補題}
+\newtheorem{Def}     [Thm]{定義}
+\newtheorem{Prop}    [Thm]{命題}
+\newtheorem{Fact}    [Thm]{事実}
+\newtheorem{Cor}     [Thm]{系}  
+\newtheorem{Conj}    [Thm]{予想}
+\newtheorem{Ex}      [Thm]{例}  
+\newtheorem{Achiom}   [Thm]{公理}
+\newtheorem{Method}[Thm]{方法} 
+\newtheorem{Rem}  [Thm]{注意}
+\newtheorem{Notation}[Thm]{記法}
+\newtheorem{Symbol}  [Thm]{記号}
+\newtheorem{Prob}    [Thm]{問題}
+\makeatletter
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{\vrule width 1pt \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+\makeatother
+
+\newenvironment{redleftbar}{%
+  \def\FrameCommand{\textcolor{red}{\vrule width 1pt} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{lightgrayleftbar}{%
+  \def\FrameCommand{\textcolor{lightgray}{\vrule width 1zw} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\def\C{\mathbb C}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+\def\iff{\Leftrightarrow}
+\def\R{\mathbb R}
+\def\F{\mathcal F}
+\def\bbL{\mathbb L}
+\def\calL{\mathcal L}
+\def\method{\begin{leftbar}\begin{Method}}
+\def\methodx{\end{Method}\end{leftbar}}
+\def\thm{\begin{leftbar}\begin{Thm}}
+\def\thmx{\end{Thm}\end{leftbar}}
+\def\prop{\begin{Prop}}
+\def\propx{\end{Prop}}
+\def\defb{\begin{leftbar}\begin{Def}}
+\def\defe{\end{Def}\end{leftbar}}
+\def\defx{\end{Def}\end{leftbar}}
+\newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
+\def\rem{\begin{Rem}}
+\def\remx{\end{Rem}}
+\def\prob{\begin{Prob}}
+\def\probx{\end{Prob}}
+\def\lem{\begin{Lemma}}
+\def\lemx{\end{Lemma}}
+\def\ex{\begin{Ex}}
+\def\exx{\end{Ex}}
+\def\cor{\begin{Cor}}
+\def\corx{\end{Cor}}
+\def\proof{\begin{Proof}}
+\def\proofx{\end{Proof}}
+\def\eq{\begin{equation}}
+\def\eqx{\end{equation}}
+\def\eqa{\begin{eqnarray}}
+\def\eqax{\end{eqnarray}}
+\def\a{\alpha}
+\def\lmd{\lambda}
+\def\omg{\omega}
+\def\Lmd{\Lambda}
+\def\Omg{\Omega}
+\newcommand{\Image}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}\nolimits}
+\newcommand{\Coker}{\mathop{\mathrm{Coker}}\nolimits}
+\newcommand{\vol}{\mathop{\mathrm{vol}}\nolimits}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
+\title{平成28年度数学特別講究\\Numerical Solution of Stochastic Differential Equations}
+\author{伊藤克哉}
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    \usepackage{tikz} % Needed to box output/input
+    \usepackage{scrextend} % Used to indent output
+    \usepackage{needspace} % Make prompts follow contents
+    \usepackage{framed} % Used to draw output that spans multiple pages
+
+
+    
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % NB prompt colors
+    \definecolor{nbframe-border}{rgb}{0.867,0.867,0.867}
+    \definecolor{nbframe-bg}{rgb}{0.969,0.969,0.969}
+    \definecolor{nbframe-in-prompt}{rgb}{0.0,0.0,0.502}
+    \definecolor{nbframe-out-prompt}{rgb}{0.545,0.0,0.0}
+
+    % NB prompt lengths
+    \newlength{\inputpadding}
+    \setlength{\inputpadding}{0.5em}
+    \newlength{\cellleftmargin}
+    \setlength{\cellleftmargin}{0.15\linewidth}
+    \newlength{\borderthickness}
+    \setlength{\borderthickness}{0.4pt}
+    \newlength{\smallerfontscale}
+    \setlength{\smallerfontscale}{9.5pt}
+
+    % NB prompt font size
+    \def\smaller{\fontsize{\smallerfontscale}{\smallerfontscale}\selectfont}
+
+    % Define a background layer, in which the nb prompt shape is drawn
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main}
+    \usetikzlibrary{calc}
+
+    % define styles for the normal border and the torn border
+    \tikzset{
+      normal border/.style={draw=nbframe-border, fill=nbframe-bg,
+        rectangle, rounded corners=2.5pt, line width=\borderthickness},
+      torn border/.style={draw=white, fill=white, line width=\borderthickness}}
+
+    % Macro to draw the shape behind the text, when it fits completly in the
+    % page
+    \def\notebookcellframe#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};% Draw the text of the node
+      \begin{pgfonlayer}{background}% Draw the shape behind
+      \fill[normal border]%
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \end{pgfonlayer}}}%
+
+    % Macro to draw the shape, when the text will continue in next page
+    \def\notebookcellframetop#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};    % Draw the text of the node
+      \begin{pgfonlayer}{background}    
+      \fill[normal border]              % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]                % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when the text continues from previous page
+    \def\notebookcellframebottom#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when both the text continues from previous page
+    % and it will continue in next page
+    \def\notebookcellframemiddle#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Define the environment which puts the frame
+    % In this case, the environment also accepts an argument with an optional
+    % title (which defaults to ``Example'', which is typeset in a box overlaid
+    % on the top border
+    \newenvironment{notebookcell}[1][0]{%
+      \def\FrameCommand{\notebookcellframe}%
+      \def\FirstFrameCommand{\notebookcellframetop}%
+      \def\LastFrameCommand{\notebookcellframebottom}%
+      \def\MidFrameCommand{\notebookcellframemiddle}%
+      \par\vspace{1\baselineskip}%
+      \MakeFramed {\FrameRestore}%
+      \noindent\tikz\node[inner sep=0em] at ($(A.north west)-(0,0)$) {%
+      \begin{minipage}{\cellleftmargin}%
+    \hfill%
+    {\smaller%
+    \tt%
+    \color{nbframe-in-prompt}%
+    In[#1]:}%
+    \hspace{\inputpadding}%
+    \hspace{2pt}%
+    \hspace{3pt}%
+    \end{minipage}%%
+      }; \par}%
+    {\endMakeFramed}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+\makeatletter
+
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null
+    \vskip 50\p@
+    \begin{center}
+      \hrule height 1pt
+      \vskip 2pt 
+      \hrule
+      \vskip 3pt
+      {\huge \bfseries \strut \@title \strut}\par
+      \vskip 2pt
+      \hrule
+      \vskip 2pt
+      \hrule height 1pt
+    \end{center}
+    \vskip 50\p@
+    \begin{flushright}
+      \Large \@author \par
+    \end{flushright}
+    \vfil
+    \null
+    \begin{flushright}
+        {\small \@date}%
+    \end{flushright}
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+
+\makeatother
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{確率微分方程式の時間離散近似}
+\section{確率論からの準備}
+\defb
+次のようにして確率過程の族を表す.\\
+\[
+\bbL_T^2 := \{f:\mbox{確率過程}\  | f_t(\omega)\mbox{は可測で}||f||_{\bbL_t^2}:= E[\int_{0}^T f_t^2 dt] < \infty \}
+\]
+\[
+\calL_T^2 = \calL_T^2 (\F_t) := \{ f \in \bbL_T^2 | f\mbox{は}(\F_t)\mbox{適合}\}
+\]
+まず有開閉区間$t\in [0,T]$上定義された確率過程$f_t$について確率積分を定義する.\par
+$B_t$を$1$次元の$(\F_t)$Brown運動であるとする \\
+$f=(f_t)$は次のように表される階段過程であるとする.\\
+\[
+f_t = \sum_{j=1}^n \tilde{f_j} 1_{[t_{j-1},t_j)}(t) ,\ t\in [0,T]
+\]
+(ただし,$\tilde{f_j}$は$\F_{t_{j-1}}$可測で有界な確率変数)\\
+このとき, 確率過程$f$の確率積分を,
+\[
+M_t(f) \equiv \int_0^t f_s dB_s := \sum_{j=1}^n \tilde{f_j} (B_{t\wedge t_j} - B_{t\wedge t_{j-1}})
+\]
+として定める.
+\[
+\mathcal M _T = \{ (M_t) : \mbox{2乗可積分な連続}(\F_t)-\mbox{マルチンゲール} | \ M_0 = 0 \ a.s. \}
+\]
+という風に定義すると,$(M_t(f))_t \in \mathcal M _T$である.
+また一般の可測な$(\F_t)-$適合な確率過程$f$に対して,$f^n$という階段過程の列が存在して,$||f-f^{(n)}||_{\bbL_t^2} \to 0 ,\ n\to \infty$
+とできる.\\
+故に,$f$の確率積分を
+\[
+\int_0^t f_sdB_s := \lim_{n\to\infty} M(f^{(n)})
+\]
+によって定める.これは$\mathcal M _T$の元として$f^{(n)}$のとり方によらず一意的に定まる.\\
+そしてこれを$[0,\infty)$に拡張して確率積分を定義することもできる.\\
+また同様にして次の確率過程の族を定める.\\
+\[
+\calL^2(\F_t) := \{f=(f_t)_{t\ge 0}:\mbox{確率過程}\  | \forall T>0 : \ (f_t)_{t\in [0,T]} \in \calL^2_T \}
+\]
+
+\defx
+\defb
+$(\Omega,\F,P)$を確率空間,$a(t,x),b(t,x):[0,\infty) \times \R \to \R$をBorel可測関数,\\
+$(\F_t)_{t\ge 0}$を増大情報系,$B_t$を$1$次元$\F_t$-Brown運動とする.
+いま,確率過程$X = (X_t)_{t\ge 0}$が次を満たすとき,{\bf 確率微分方程式(stochastic differential equation)}
+\eq
+dX_t = a(t,X_t)dt + b(t,X_t)dW_t \ \ X_{t_0} =X_0
+\eqx
+の解であるという.\\
+$X$は$(\Omega,\F,P)$上で定義された$\F_t$適合かつ可測な$\R$値連続確率過程で,\\
+(i)
+\[
+  a(t,X_t) \in L^1_{loc} ([0,\infty)),\  b(t,X_t) \in L^2(\F_t)\  a.s.
+\]
+(ii)確率積分方程式
+\[
+X_t = X_0 + \int_0^t a(s,X_s)ds +  \int_0^t b(s,X_s)dB_s
+\]
+を満たす.
+\defx
+次に確率微分方程式の解の一意性について述べる.\\
+\defb
+$[t_0,T]$上の確率微分方程式が{\bf pathwise unique}な解を持つとは,\\
+任意の2組の解$X_t,\tilde{X}_t$が,
+\[
+P \big( \sup_{t_0\le t\le T} \big| X_t - \tilde{X}_t \big | > 0 \big) = 0
+\]
+を満たすということである.
+\defx
+
+
+\thm[解の一意性]
+\label{thm_uniq}
+$[t_0,T]$上の確率微分方程式
+\[
+dX_t = a(t,X_t)dt + b(t,X_t)dW_t \ ,\ X_{t_0} =X_0
+\]
+は次の$4$条件を満たすとき
+\[
+\sup_{t_0\le t\le T} E(|X_t|^2) < \infty
+\]
+を満たすようなpathwise unique な強解$X_t$を$[t_0,T]$上持つ\\
+$(A1)$ (可測性) $a(t,x),b(t,x)$は$[t_0,T] \times\R$で$L^2$可測.\\
+$(A2)$(Lipschitz条件)次を満たす定数$K>0$が存在する.
+\[
+|a(t,x) - a(t,y) | \le K |x-y|
+\]
+\[
+|b(t,x) - b(t,y) | \le K |x-y|
+\]
+$(A3)$ 次を満たす定数$K>0$が存在する.
+\[
+|a(t,x)|^2 \le K^2 (1+|x|^2)
+\]
+\[
+|b(t,x)|^2 \le K^2 (1+|x|^2)
+\]
+$(A4)$
+$X_{t_0}$は$\F_{t_0}$可測で$E(|X_{t_0}|^2)<\infty$を満たす.
+\thmx
+
+\section{確率微分方程式の数値解析}
+$X = \{X_t , t_0 \le t \le T \}$を次の確率微分方程式を満たす伊藤過程とする.
+\eq
+\label{itoeq}
+dX_t = a(t,X_t)dt + b(t,X_t)dW_t \ \ X_{t_0} =X_0 \  \  (t_0 \le t \le T)
+\eqx
+
+\method
+{\bf オイラー法(Euler approximation)}は,$(\ref{itoeq})$をみたす伊藤過程と\\
+区間$[t_0,T]$の時間離散化$t_0 = \tau_0 < \tau_1 < \cdots < \tau_n < \cdots < \tau_N = T$に対して,\\
+次のような連続時間確率過程を確率微分方程式の近似解として与える.
+\eq
+\label{eq913}
+Y_{n+1} = Y_n + a(\tau_n , Y_n)(\tau_{n+1} -\tau_n) + b(\tau_n,Y_n) (W_{\tau_{n+1}} - W_{\tau_n}),
+\ (n = 0,1,2,\cdots,N-1)
+\eqx
+ただし,$Y_0 = X_0$で,$Y_n = Y(\tau_n)$と書いた.\\
+\\
+またこのとき$\Delta_n = \tau_{n+1} -\tau_n $で離散化の間隔を表し,$\delta = \max_{n} \Delta_n$と表す.\\
+多くの場合は$\tau_n = t_0 + n\delta$で$\delta = \delta_n  \equiv (T-t_0)/N$であるような等間隔の離散化を考える.\\
+実際に計算する際には,決定論的なEuler法との違いはランダムな増加項があるということである.\\
+\[
+\Delta W_n = W_{\tau_{n+1} -W_{\tau_n}}
+\]
+として定義すると,Brown運動の性質により,$\Delta W_n$は期待値$0$,分散$\Delta_n$である正規乱数である.\\
+また
+\[
+f = f(\tau_n,Y_n)
+\]
+という略記を使えば,
+\[
+Y_{n+1} = Y_n + a \Delta_n + b \Delta W_n
+\]
+という風に書くことができる.
+
+\methodx
+ここで近似方法の誤差評価について考える.
+\defb
+$X_t$を確率微分方程式の解として,$Y_t$をその近似解とする.\\
+この近似方法の時刻$T$での{\bf 絶対誤差}$\epsilon$ は次で定義される.
+\[
+\epsilon = E ( | X_T - Y_T | )
+\]
+\defx
+
+また実際に絶対誤差を数値計算する場合は,$N$回シミュレーションを行い,その$k$回目の軌道を$X_{T,k},Y_{T,k}$とおくと,
+\[
+\hat{\epsilon} = \frac{1}{N} \sum_{k=1}^N | X_{T,k} - Y_{T,k} |
+\]
+として推定する事ができる.さらに信頼区間を推定する場合には,
+$N$回のシミュレーションを$M$組行い,$j$組の$k$回目の軌道を$X_{T,k,j},Y_{T,k,j}$とおき,
+\[
+\hat{\epsilon}_j = \frac{1}{N} \sum_{k=1}^N | X_{T,k,j} - Y_{T,k,j} |
+\]
+と定めることによって,期待値,分散はそれぞれ,
+\[
+\hat{\epsilon} = \frac{1}{M} \sum_{j=1}^M \hat{\epsilon}_j 
+\]
+\[
+\hat{\sigma} = \frac{1}{M-1} \sum_{j=1}^M (\hat{\epsilon}_j  - \hat{\epsilon})^2
+\]
+として推定することができる.ここで$t$検定を行うことにより,信頼区間を推定できる.
+\defb
+$\hat{\epsilon}$を絶対誤差の推定値とする.\\
+ここで$\epsilon_{sys} = E(\hat{\epsilon}) = \epsilon$を{\bf systematic error},
+さらに$\epsilon_{stat} = \hat{\epsilon} - \epsilon_{sys}$を{\bf statistical error}と呼ぶ.
+\defx
+次に常微分方程式のとき同様に収束性と適合性の関係について述べる.
+\defb
+$X_t$を確率微分方程式の解として,最大幅が$\delta$の近似解を$Y_t^\delta$とする.\\
+このとき,$Y^\delta$がオーダー$\gamma > 0$で{\bf 強収束}する(converges strongly with order $\gamma$)とは
+\[
+\exists C > 0 ,\ \exists \delta_0 > 0 \ s.t.  \forall \delta \in (0,\delta_0) : \ E(|X_T - Y^\delta(T) | ) \le C\delta^\gamma
+\]
+とできることである.
+\defx
+以下,確率微分方程式に付随する情報増大系を$\F_t \ t\ge 0$をおく.
+
+
+\defb
+最大幅が$\delta$の近似解$Y^\delta$が{\bf strongly consistent} であるとは,\\
+次を満たすような,非負の関数$c = c(\delta)$が存在することである.
+\[
+\lim_{\delta \downarrow 0} c(\delta) = 0 
+\]
+かつ
+\[
+E \big( \big| E( \frac{Y^\delta_{n+1} - Y^\delta_n}{\Delta_n} | \F_{\tau_n})
+- a(\tau_n,Y_n^\delta)
+ \big|^2 \big)   \le c(\delta)
+\]
+\[
+E(\frac{1}{\Delta_n} | Y^\delta_{n+1} - Y^\delta_n
+- E(Y^\delta_{n+1} - Y^\delta_n | \F_{\tau_n})
+- b(\tau_n,Y_n^\delta)\Delta W_n|^2) \le c(\delta)
+\]
+
+\defx
+
+\thm
+
+解の一意性($\ref{thm_uniq}$)の仮定A1-A4を満たすような自励系確率微分方程式
+\[
+dX_t = a(X_t)dt + b(X_t)dW_t \ ,\ X_{t_0} =X_0
+\]
+を考える.このとき strongly consistentな等間隔の近似解$Y^\delta$は解$X_t$に強収束する.
+\thmx
+\leavevmode\\
+\proof
+
+$0 \le t \le T$として
+
+\[
+Z(t) = \sup_{0\le s\le t} E(|Y_{n_s}^\delta - X_s|^2)
+\]
+
+とおく.ここで証明すべきは,
+\[
+Z(t) \le C(\delta + c(\delta))
+\]
+である.実際,それを証明すれば,Lyapunovの不等式によって,
+\[
+E(|Y^\delta(T) - X_T|) \le \sqrt{Z(T)} \le \sqrt{C(\delta+c(\delta))}
+\]
+とできるので強収束することがわかる.\\
+まず$Z(t)$の式に定義から明らかな次の2式を代入する.
+\[
+X_s = X_0 + \int_0^s a(X_r)dr + \int_0^s b(X_r) dW_r
+\]
+\[
+Y_{n_s}^\delta - X_0 =  Y_{n_s}^\delta - Y_0 = \sum_{n=0}^{n_s-1}(Y_{n+1}^\delta - Y_n^\delta)
+\]
+これにより,
+\[
+Z(t) = \sup_{0\le s\le t}  E 
+\big(  \big|
+ \sum_{n=0}^{n_s-1}(Y_{n+1}^\delta - Y_n^\delta) - \int_0^s a(X_r)dr - \int_0^s b(X_r) dW_r
+\big| ^2 \big)
+\]
+
+を得る.更にこれに対して,まず最初の$\sum$の項を
+\[
+\sum_{n=0}^{n_s-1}(Y_{n+1}^\delta - Y_n^\delta) = \sum_{n=0}^{n_s-1}(Y_{n+1}^\delta - Y_n^\delta 
++ E(Y_{n+1}^\delta - Y_n^\delta | \F_{\tau_n}) - E(Y_{n+1}^\delta - Y_n^\delta | \F_{\tau_n}))
+\]
+という風に項を追加する.また2つの積分の項を
+\[
+\int_0^{\tau_{n_s}} a(Y^\delta_{n_r})dr - \sum_{n=0}^{n_s-1} a(Y_n^\delta)\Delta_n \ge 0
+\]
+\[
+\int_0^{\tau_{n_s}} b(Y^\delta_{n_r})dW_r - \sum_{n=0}^{n_s-1} b(Y_n^\delta)\Delta_n \ge 0
+\]
+という正の式を加えることによって上から評価する.さらに期待値を各項に分解することによって,
+\[
+Z(t)\le C_1  \sup_{0\le s\le t} 
+E \big(  \big|
+\sum_{n=0}^{n_s-1} (E(Y_{n+1}^\delta - Y_n^\delta | \F_{\tau_n}) - a(Y_n^\delta)\Delta_n )
+\big| ^2 \big)
+\]
+
+\[
++ E \big( \big|
+\sum_{n=0}^{n_s-1} ( Y^\delta_{n+1} - Y^\delta_n
+- E(Y^\delta_{n+1} - Y^\delta_n | \F_{\tau_n})
+- b(\tau_n,Y_n^\delta)\Delta W_n)
+\big| ^2 \big) 
+\]
+
+\[
++ E \big( \big|
+\int_0^{\tau_{n_s}} ( a(Y^\delta_{n_r}) - a(X_r) )dr 
+\big| ^2 \big) 
+\]
+\[
++ E \big( \big|
+\int_0^{\tau_{n_s}} ( b(Y^\delta_{n_r}) - b(X_r) )dW_r 
+\big| ^2 \big) 
+\]
+\[
++ E \big( \big|
+\int_{\tau_{n_s}}^s a(X_r)dr
+\big| ^2 \big) 
++ E \big( \big|
+\int_{\tau_{n_s}}^s b(X_r)dX_r
+\big| ^2 \big) 
+\]
+ここで第一項については
+
+\[
+E \big(  \big|
+\sum_{n=0}^{n_s-1} (E(Y_{n+1}^\delta - Y_n^\delta | \F_{\tau_n}) - a(Y_n^\delta)\Delta_n )
+\big| ^2 \big)
+\le
+T\delta \sum_{n=0}^{n_s-1} E \big( \big| E( \frac{Y^\delta_{n+1} - Y^\delta_n}{\Delta_n} | \F_{\tau_n})
+- a(Y_n^\delta)
+ \big|^2 \big)  
+\]
+次の積分の項は以下のようにして評価する.
+
+\eqa
+E \big( \big| \int_0^{\tau_{n_s}} ( a(Y^\delta_{n_r}) - a(X_r) )dr \big| ^2 \big)  &\le&
+E \big( \int_0^{\tau_{n_s}} 1^2 dr \times \int_0^{\tau_{n_s}}\big| ( a(Y^\delta_{n_r}) - a(X_r) ) \big| ^2 dr \big) \\
+&\le&T E \big(\int_0^{\tau_{n_s}} K^2 |Y^\delta_{n_r} - X_r|^2dr \big) \\
+&\le&T E \big(K^2 \int_0^{\tau_{n_s}} Z(r) dr \big) \\
+&\le& TK^2 \int_0^{\tau_{n_s}} Z(r) dr
+\eqax
+
+\eqa
+E \big( \big| \int_0^{\tau_{n_s}} ( b(Y^\delta_{n_r}) - b(X_r) )dW_r  \big| ^2 \big)  &\le&
+\int_0^{\tau_{n_s}} E \big(   \big|b(Y^\delta_{n_r}) - b(X_r) \big| ^2 \big) dr   \\
+&\le& \int_0^{\tau_{n_s}} E \big(   K^2 |Y^\delta_{n_r} - X_r|^2 \big) dr   \\
+&\le&  K^2 \int_0^{\tau_{n_s}}  Z(r) dr 
+\eqax
+
+\eqa
+E \big( \big| \int_{\tau_{n_s}}^s a(X_r)dr \big| ^2 \big) &\le&
+E \big( T \int_{\tau_{n_s}}^s \big|  a(X_r) \big| ^2  dr \big)\\
+&\le& E \big(T \int_{\tau_{n_s}}^s K^2 (1 + |X_r|^2)dr \big) \\
+&\le& TK^2 \int_{\tau_{n_s}}^s  E(1 + |X_r|^2)dr \\
+&\le&TK^2 \int_{\tau_{n_s}}^s (1 + C_2) dr\\
+&\le& TK^2 (1+C_2)\delta
+\eqax
+
+\eqa
+E \big( \big| \int_{\tau_{n_s}}^s b(X_r)dX_r \big| ^2 \big) &\le&
+\int_{\tau_{n_s}}^s E \big(b(X_r)^2\big)dr \\
+&\le&\int_{\tau_{n_s}}^s K^2 E \big(1+|X_r|^2\big)dr \\
+&\le& K^2 \int_{\tau_{n_s}}^s  (1+C_2) dr\\
+&\le& K^2 (1+C_2) \delta
+\eqax
+
+という風にそれぞれ評価ができる.故に
+\[
+Z(t) \le C_3 \int_0^t Z(r) dr + C_4 (\delta + c(\delta))
+\]
+とできて,Gronwallの不等式から
+\[
+Z(t) \le C_5(\delta + c(\delta))
+\]
+となり証明を終える.
+
+
+\proofx
+
+
+ここで$\mathcal C^{l}_P$とは,$w:\R\to\R$という$l$回連続微分可能でかつその偏微分はpolynomial growthなものであったことを思い出す.
+\defb
+$X_t$を確率微分方程式の解として,最大幅が$\delta$の一般時間離散近似による近似解を$Y^\delta$とする.\\
+$\mathcal C=\mathcal C^{2(\beta+1)}_P$というテスト関数の集合とする.\\
+このとき,$Y^\delta$がオーダー$\beta >0$ で{\bf 弱収束}する(converges weakly with order $\beta$ at T)とは,\\
+\[
+\forall g \in \mathcal C \ \exists C > 0 ,\ \exists \delta_0 > 0 \ s.t. \forall\delta\in(0,\delta_0):\ \
+| E(g(X_T)) - E(g(Y^\delta(T)))| \le C \delta^\beta 
+\]
+となることである.
+\defx
+例えば,$\mathcal C$には全ての多項式が属しているので,これは全てのモーメントが収束して同じになるということを含意している.\\
+
+\defb
+最大幅が$\delta$の近似解$Y^\delta$が{\bf weakly consistent} であるとは,\\
+次を満たすような,非負の関数$c = c(\delta)$が存在することである.
+\[
+\lim_{\delta \downarrow 0} c(\delta) = 0 
+\]
+かつ
+\[
+E \big( \big| E( \frac{Y^\delta_{n+1} - Y^\delta_n}{\Delta_n} | \F_{\tau_n})
+- a(\tau_n,Y_n^\delta)
+ \big|^2 \big)   \le c(\delta)
+\]
+\[
+E(|E(\frac{1}{\Delta_n}  (Y^\delta_{n+1} - Y^\delta_n)^2 | \F_{\tau_n})
+- b(\tau_n,Y_n^\delta)^2 |^2) \le c(\delta)
+\]
+
+\defx
+
+\thm
+次の自励系確率微分方程式
+\[
+dX_t = a(X_t)dt + b(X_t)dW_t \ ,\ X_{t_0} =X_0
+\]
+の$a(x),b(x)$が$4$回連続微分可能で,polynomial growthであり,その微分は一様有界であるとする.\\
+$Y^\delta$をweakly consistentで等間隔$\delta$の時間離散化による近似解であるとし,
+\[
+E(\max_n |Y_n^\delta|^{2q}) \le K (1+E(|X_0|^{2q})),\ \ q=1,2,\cdots,
+\]
+\[
+E(\frac{1}{\Delta_n}|Y_{n+1} - Y_{n+1}|^6) \le c(\delta)\ \ n=1,2,\cdots,
+\]
+を満たすとする.このとき,$Y^\delta$は$X_t$に弱収束する.
+\thmx
+
+\proof
+まず
+\[
+u(s,x) = E(g(X_T) | X_s =x )
+\]
+という関数は
+\[
+\frac{\partial u}{\partial s} + a\frac{\partial u}{\partial x} +
+\frac{1}{2}b^2 \frac{\partial^2 u}{\partial x^2} = 0
+\]
+\[
+u(T,x) = g(x)
+\]
+という偏微分方程式の解である.\\
+ここで,$X^{s,x}$によって時刻$s$に$x$を出発する伊藤過程を表すとする.つまり,
+\[
+X_t^{s,x} = x + \int_s^t a(X_r^{s,x})dr + \int_s^t b(X_r^{s,x})dW_r 
+\]
+ということである.ここで伊藤の公式を用いると,
+\[
+E(u(\tau_{n+1},X^{\tau_n,x}_{\tau_{n+1}} - u(\tau_n,x) | \F_{\tau_n}) = 0
+\]
+であることが分かる.\\
+\[
+H_\delta = |E(g(Y^\delta(T))) - E(g(X_T))|
+\]
+と定義してこれらを評価することを考える.まず,上の式から
+\eqa
+H_\delta &=& |E(u(T,Y^\delta(T) - u(0,Y^\delta_0))|\\
+&=& \big| E\big( \sum_{n=0}^{n_T-1} \{ u(\tau_{n+1},Y^\delta_{n+1}) - u(\tau_n,Y^\delta_n) \}\big) \big|
+\eqax
+そして,これに伊藤の公式から導かれた$u$の公式を用いると,
+\[
+H_\delta = \big| 
+E\big( \sum_{n=0}^{n_T-1} \{ u(\tau_{n+1},Y^\delta_{n+1}) - u(\tau_n,Y^\delta_n) \}
+- \{ u(\tau_{n+1},X^{\tau_n,Y_n}_{\tau_{n+1}}) - u(\tau_n,X^{\tau_n,Y_n}_{\tau_{n}})) \}
+\big) 
+\big|
+\]
+\[
+=  \big| 
+E\big( \sum_{n=0}^{n_T-1} \{ u(\tau_{n+1},Y^\delta_{n+1}) - u(\tau_n,Y^\delta_n) \}
+- \{ u(\tau_{n+1},X^{\tau_n,Y_n}_{\tau_{n+1}}) - u(\tau_{n+1},Y_n)) \}
+\big) 
+\big|
+\]
+という風に変形できる.ここで,$u$を$x$についてテイラー展開すると,
+\[
+= \big| E\big(\sum_{n=0}^{n_T-1} \big[
+\frac{\partial u}{\partial x}(\tau_{n+1},Y_n)\{
+(Y_{n+1} - Y_n) - (X^{\tau_n,Y_n}_{\tau_{n+1}} - Y_n) \} 
+\]
+\[
++\frac{1}{2}\frac{\partial^2 u}{\partial x^2} (\tau_{n+1},Y_n)\{
+(Y_{n+1} - Y_n)^2 - (X^{\tau_n,Y_n}_{\tau_{n+1}} - Y_n)^2 \}
++ R(Y_{n+1}) - R(X^{\tau_n,Y_n}_{\tau_{n+1}})
+\big]
+\big) 
+\big|
+\]
+という風に展開できる.ここで各項について評価すると,
+\[
+\big| E\big(\sum_{n=0}^{n_T-1} 
+\frac{\partial u}{\partial x}(\tau_{n+1},Y_n)\{
+(Y_{n+1} - Y_n) - (X^{\tau_n,Y_n}_{\tau_{n+1}} - Y_n) \}
+\]
+\eqa
+&\le&
+\big|\sum_{n=0}^{n_T-1}  E\big(
+|\frac{\partial u}{\partial x}| 
+|E((Y_{n+1} - Y_n) - (X^{\tau_n,Y_n}_{\tau_{n+1}} - Y_n)|\F_{\tau_n})|
+\big)\\
+&\le&
+\big|\sum_{n=0}^{n_T-1} \Delta_n E\big(
+|\frac{\partial u}{\partial x}| 
+|E(\frac{Y_{n+1} - Y_n}{\Delta_n} - a(\tau_n,Y_n)|\F_{\tau_n})|
+\big)\\
+&\le&
+\big|\sum_{n=0}^{n_T-1} \Delta_n E\big(
+|\frac{\partial u}{\partial x}|^2 \big)^{1/2}
+E\big(
+|E(\frac{Y_{n+1} - Y_n}{\Delta_n}|\F_{\tau_n}) - a(\tau_n,Y_n)|^2
+\big)^{1/2}\\
+&\le& TK\sqrt{c(\delta)}
+\eqax
+次の項を評価すると
+\[
+\big|\sum_{n=0}^{n_T-1}\frac{1}{2}\frac{\partial^2 u}{\partial x^2} (\tau_{n+1},Y_n)\{
+(Y_{n+1} - Y_n)^2 - (X^{\tau_n,Y_n}_{\tau_{n+1}} - Y_n)^2 \}\big|
+\]
+\eqa
+&\le&\sum_{n=0}^{n_T-1}\Delta_n E\big(\frac{1}{2}|\frac{\partial^2 u}{\partial x^2}| |E(\frac{(Y_{n+1} - Y_n)^2}{\Delta_n}|\F_{\tau_n}) - b(\tau_n,Y_n)^2| \big)\\
+&\le&\sum_{n=0}^{n_T-1}\Delta_n \frac{1}{2}|E(\frac{\partial^2 u}{\partial x^2}|^2) E( |E(\frac{(Y_{n+1} - Y_n)^2}{\Delta_n}|\F_{\tau_n}) - b(\tau_n,Y_n)^2|^2) \\
+&\le&  TK\sqrt{c(\delta)}
+\eqax
+最後の剰余項は$K\Delta_n^{3/2}$で押さえきれているので,
+\[
+\lim_{\delta\downarrow 0} H_\delta = \lim_{\delta\downarrow 0} TK\sqrt{c(\delta)} = 0
+\]
+とできて,たしかに弱収束する.
+
+
+\proofx
+
+\defb
+$Y^\delta, \tilde{Y}^\delta$はそれぞれ$Y_0,\tilde{Y}_0$に対する近似解を表すとする.\\
+時間離散近似がある確率微分方程式に対して{\bf 確率論的に安定(stochastically numerically stable)}であるとは,
+任意の有開閉区間$[t_0,T]$と$\delta_0>0$と$\epsilon>0$が存在して,
+\[
+\forall \delta \in (0,\delta_0) : \lim_{|Y_0 - \tilde{Y}_0|\to 0} \sup_{t_0\le t\le T}
+P(|Y_{n_t}^\delta - \tilde{Y}_{n_t}^\delta | \ge \epsilon )  = 0
+\]
+とできることである.\\
+また単に,時間離散近似法が確率論的に安定であるとは,任意の収束する確率微分方程式に対して安定であることである.
+\defx
+
+
+\defb
+時間離散近似がある確率微分方程式に対して{\bf 漸近的に安定(asymptotically numerically stable)}であるとは,$\delta_a>0$と$\epsilon>0$が存在して,
+\[
+\forall \delta \in (0,\delta_a) : \lim_{|Y_0 - \tilde{Y}_0|\to 0} \lim_{T\to\infty}
+P(\sup_{t_0\le t\le T}|Y_{n_t}^\delta - \tilde{Y}_{n_t}^\delta | \ge \epsilon )  = 0
+\]
+とできることである.(ただし,$Y^\delta, \tilde{Y}^\delta$はそれぞれ$Y_0,\tilde{Y}_0$に対する近似解である.)\\
+\defx
+
+\defb
+確率微分方程式の近似法の{\bf 絶対安定領域}とは次のような左半平面内の領域$R$である.
+\\
+$\lambda \Delta \in R \iff $
+\[
+dX_t = \lambda X_t dt + dW_t
+\]
+という複素確率微分方程式を考え,
+間隔$\Delta$の離散化に対する数値解$Y_n^\Delta$が任意の初期値$X_0$に対して
+\[
+\lim_{n\to\infty} Y_n^\Delta = 0
+\]
+を満たす\\
+また決定論的微分方程式の場合と同様に絶対安定領域が左平面内全体であるとき,{\bf A安定(A-stable)}という.
+\defx
+
+
+
+
+\end{document}
