@@ -595,10 +595,36 @@
 
 \chapter{確率微分方程式の時間離散近似}
 \section{確率論からの準備}
+以下では$(\Omega,\F,P)$という確率空間を考える.
 \defb
+$(\F_t)_{t\ge0}$が{\bf 情報増大系}であるとは,
+\[
+\F_t \subset \F : sub\ \sigma-alg \mbox{かつ} 0\le s \le t \Rightarrow \F_s \subset \F_s
+\]
+となることである.\\
+また$d$次元確率過程$X=(X_t)_{t\ge 0}$が情報増大系$(\F_t)_{t\ge0}$に対して{\bf 適合(adapted)}しているとは,
+$\forall t \ge 0 \ : \ X_t:\Omega \to \R^d$ が$\F_t$可測であるということである.
+\defx
+
+\defb
+確率過程$B=(B_t)_{t\ge 0}$が実数値Brown運動であるとは,次を満たすことである.\\
+(i) \ $B_0 = 0 \  $a.s.\\
+(ii)\ $\forall \omega \in \Omega:B_t(\omega)$は連続である.\\
+(iii)\ $0 < t_0 < t_1 < \cdots < t_n $という任意の細分に対して,$\{B_{t_j} - B_{t_{j-1}}\}_{i}$は互いに独立で
+$N(0,t_i-t_{i-1})$に従う.
+\defx
+
+\defb
+右連続な確率過程$X=(X_t)_{t\ge 0}$が$(\F_t)_{t\ge 0}$-マルチンゲールであるとは,次を満たすことである.\\
+(i)\ $\forall t \ge 0:\ E[|X_t|] < \infty$\\
+(ii)\ $X$は$(\F_t)_t$適合である.\\
+(iii)\ $0\le \forall s \le t:\ E[X_t|\F_s] = X_s\ $a.s.である.
+\defx
+
+\defb[伊藤積分]
 次のようにして確率過程の族を表す.\\
 \[
-\bbL_T^2 := \{f:\mbox{確率過程}\  | f_t(\omega)\mbox{は可測で}||f||_{\bbL_t^2}:= E[\int_{0}^T f_t^2 dt] < \infty \}
+\bbL_T^2 := \{f:\mbox{確率過程}\  | f_t(\omega)\mbox{は可測で}||f||_{\bbL_T^2}:= E[\int_{0}^T f_t^2 dt] < \infty \}
 \]
 \[
 \calL_T^2 = \calL_T^2 (\F_t) := \{ f \in \bbL_T^2 | f\mbox{は}(\F_t)\mbox{適合}\}
@@ -619,7 +645,7 @@ M_t(f) \equiv \int_0^t f_s dB_s := \sum_{j=1}^n \tilde{f_j} (B_{t\wedge t_j} - B
 \mathcal M _T = \{ (M_t) : \mbox{2乗可積分な連続}(\F_t)-\mbox{マルチンゲール} | \ M_0 = 0 \ a.s. \}
 \]
 という風に定義すると,$(M_t(f))_t \in \mathcal M _T$である.
-また一般の可測な$(\F_t)-$適合な確率過程$f$に対して,$f^n$という階段過程の列が存在して,$||f-f^{(n)}||_{\bbL_t^2} \to 0 ,\ n\to \infty$
+また一般の可測な$(\F_t)-$適合な確率過程$f$に対して,$f^n$という階段過程の列が存在して,$||f-f^{(n)}||_{\bbL_T^2} \to 0 ,\ n\to \infty$
 とできる.\\
 故に,$f$の確率積分を
 \[
@@ -633,6 +659,15 @@ M_t(f) \equiv \int_0^t f_s dB_s := \sum_{j=1}^n \tilde{f_j} (B_{t\wedge t_j} - B
 \]
 
 \defx
+
+\thm
+確率積分$M_t(f) = \int_0^t f_sdB_s$は次をみたす.\\
+(1)$M_t(f)$は$\F_t$マルチンゲールである.\\
+(2)$E(M_t(f))=0$\\
+(3)$E(M_t(f)^2) = \int_0^T E(f(t,-)^2)dt$\\
+(4)$I(af+bg) = aI(f)+bI(g)\ $a.s.\\
+\thmx
+
 \defb
 $(\Omega,\F,P)$を確率空間,$a(t,x),b(t,x):[0,\infty) \times \R \to \R$をBorel可測関数,\\
 $(\F_t)_{t\ge 0}$を増大情報系,$B_t$を$1$次元$\F_t$-Brown運動とする.
@@ -691,6 +726,22 @@ $(A3)$ 次を満たす定数$K>0$が存在する.
 \]
 $(A4)$
 $X_{t_0}$は$\F_{t_0}$可測で$E(|X_{t_0}|^2)<\infty$を満たす.
+\thmx
+
+\thm[伊藤の公式]
+$U:[0,T]\times\R \to \R$は$C^2$級であるとする.\\
+$X_t$は次の確率微分方程式の解であるとする.
+\[
+dX_t = e(t,\omega)dt + f(t,\omega)dW_t(\omega)
+\]
+このとき,$Y_t=U(t,X_t)$は
+\[
+Y_t - Y_s = \int_s^t \{ \frac{\partial U}{\partial t}(u,X_u)
++ e_u\frac{\partial U}{\partial x}(u,X_u)
++ \frac{1}{2} f_u^2 \frac{\partial^2 U}{\partial x^2}(u,X_u)\} du
++ \int_s^t f_u \frac{\partial U}{\partial x}(u,X_u)dW_u
+\]
+をalmost surelyに満たす
 \thmx
 
 \section{確率微分方程式の数値解析}
