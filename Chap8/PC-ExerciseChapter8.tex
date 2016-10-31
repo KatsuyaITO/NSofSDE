@@ -1,4 +1,5 @@
 
+
 % Default to the notebook output style
 
     
@@ -10,9 +11,10 @@
 
 
     
-\documentclass[11pt]{article}
+\documentclass[a4paper,dvipdfmx]{jsarticle}
 
     
+        
     
     \usepackage[T1]{fontenc}
     % Nicer default font than Computer Modern for most use cases
@@ -66,6 +68,13 @@
                                 % normalem makes italics be italics, not underlines
     
 
+    \usepackage{tikz} % Needed to box output/input
+    \usepackage{scrextend} % Used to indent output
+    \usepackage{needspace} % Make prompts follow contents
+    \usepackage{framed} % Used to draw output that spans multiple pages
+
+
+    
     
     
     % Colors for the hyperref package
@@ -158,69 +167,69 @@
     \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
 \def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
 
-\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
-\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
-\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
-\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
-\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
-\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
-\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
-\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
-\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
-\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
-\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
-\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
-\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
-\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
-\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
-\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
-\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
-\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
 \expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
-\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
-\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
-\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 
 \def\PYZbs{\char`\\}
 \def\PYZus{\char`\_}
@@ -247,6 +256,216 @@
     % Exact colors from NB
     \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
     \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % NB prompt colors
+    \definecolor{nbframe-border}{rgb}{0.867,0.867,0.867}
+    \definecolor{nbframe-bg}{rgb}{0.969,0.969,0.969}
+    \definecolor{nbframe-in-prompt}{rgb}{0.0,0.0,0.502}
+    \definecolor{nbframe-out-prompt}{rgb}{0.545,0.0,0.0}
+
+    % NB prompt lengths
+    \newlength{\inputpadding}
+    \setlength{\inputpadding}{0.5em}
+    \newlength{\cellleftmargin}
+    \setlength{\cellleftmargin}{0.15\linewidth}
+    \newlength{\borderthickness}
+    \setlength{\borderthickness}{0.4pt}
+    \newlength{\smallerfontscale}
+    \setlength{\smallerfontscale}{9.5pt}
+
+    % NB prompt font size
+    \def\smaller{\fontsize{\smallerfontscale}{\smallerfontscale}\selectfont}
+
+    % Define a background layer, in which the nb prompt shape is drawn
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main}
+    \usetikzlibrary{calc}
+
+    % define styles for the normal border and the torn border
+    \tikzset{
+      normal border/.style={draw=nbframe-border, fill=nbframe-bg,
+        rectangle, rounded corners=2.5pt, line width=\borderthickness},
+      torn border/.style={draw=white, fill=white, line width=\borderthickness}}
+
+    % Macro to draw the shape behind the text, when it fits completly in the
+    % page
+    \def\notebookcellframe#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};% Draw the text of the node
+      \begin{pgfonlayer}{background}% Draw the shape behind
+      \fill[normal border]%
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \end{pgfonlayer}}}%
+
+    % Macro to draw the shape, when the text will continue in next page
+    \def\notebookcellframetop#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};    % Draw the text of the node
+      \begin{pgfonlayer}{background}    
+      \fill[normal border]              % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]                % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when the text continues from previous page
+    \def\notebookcellframebottom#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when both the text continues from previous page
+    % and it will continue in next page
+    \def\notebookcellframemiddle#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Define the environment which puts the frame
+    % In this case, the environment also accepts an argument with an optional
+    % title (which defaults to ``Example'', which is typeset in a box overlaid
+    % on the top border
+    \newenvironment{notebookcell}[1][0]{%
+      \def\FrameCommand{\notebookcellframe}%
+      \def\FirstFrameCommand{\notebookcellframetop}%
+      \def\LastFrameCommand{\notebookcellframebottom}%
+      \def\MidFrameCommand{\notebookcellframemiddle}%
+      \par\vspace{1\baselineskip}%
+      \MakeFramed {\FrameRestore}%
+      \noindent\tikz\node[inner sep=0em] at ($(A.north west)-(0,0)$) {%
+      \begin{minipage}{\cellleftmargin}%
+    \hfill%
+    {\smaller%
+    \tt%
+    \color{nbframe-in-prompt}%
+    In[#1]:}%
+    \hspace{\inputpadding}%
+    \hspace{2pt}%
+    \hspace{3pt}%
+    \end{minipage}%%
+      }; \par}%
+    {\endMakeFramed}
 
 
 
@@ -278,20 +497,38 @@
     \section{Time Discrete Approximation of Deterministic Differential
 Equations}\label{time-discrete-approximation-of-deterministic-differential-equations}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-        \PY{k+kn}{import} \PY{n+nn}{math}
-        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{warnings}
-        \PY{n}{warnings}\PY{o}{.}\PY{n}{simplefilter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{math}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{warnings}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{simplefilter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
 \end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
 
     \subsection{PC-Exercise 8.1.1}\label{pc-exercise-8.1.1}
 
@@ -299,33 +536,62 @@ Apply the Euler method (1.2) to the VIP
 \(\frac{dx}{dt} = -5x , x(0) = 1\), with \(\Delta = 2^{-3} ,2^{-5}\)
 over \(0 \le t \le 1\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{a811}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
-        \PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-        
-        \PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a811}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_3_0.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.1.2}\label{pc-exercise-8.1.2}
 
 For the IVP in PC-Exercise 8.1.2 calculate the global discretization
@@ -335,175 +601,284 @@ singnificant digits.Plot the logarithm to the base 2 of these error
 against \(\log_2 \Delta\) and determine the slope of the resulting
 curve.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{roundoff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{format}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{roundoff}\PY{p}{(}\PY{n}{delta}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{roundoff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{format}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{roundoff}\PY{p}{(}\PY{n}{delta}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method\PYZus{}round}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_5_0.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.1.3}\label{pc-exercise-8.1.3}
 
 Repeat PC-Exercise 8.1.2 with the usual arithmetic of the PC for the
 modified trapezoidal method (1.12). Compare the results with those for
 the Euler method.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
-        \PY{n}{ans2} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-        
-        \PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_7_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_7_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.1.5}\label{pc-exercise-8.1.5}
 
 Repeat PC-Exercise 8.1.3 using the 3-step Adams-Bashford method (1.14)
 with the Heun method (1.12) as its starting routine.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-            
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{23}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{16}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{+}  \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12} \PY{o}{*}\PY{n}{delta}\PY{p}{)}
-        
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
-        \PY{n}{ans2} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-        
-        \PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                                \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adams Bashford Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{23}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{16}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{+}  \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12} \PY{o}{*}\PY{n}{delta}\PY{p}{)}
+
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delta = 2\PYZca{}\PYZhy{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{fabs}\PY{p}{,}\PY{n}{exp}\PY{p}{,}\PY{n}{log} 
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{adams\PYZus{}bashford\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{heun\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{heun\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a811}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{14}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{adams\PYZus{}bashford\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adams Bashford Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{heun\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heun Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_9_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_9_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.1.7}\label{pc-exercise-8.1.7}
 
 Compare the error of the Euler and Richardson extrapolation
@@ -511,42 +886,71 @@ approximations of x(1) for the solution of the initial value problem
 
 \(\frac{dx}{dt} = -x , \ x(0) = 1\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{a817}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{x}
-        
-        \PY{k}{def} \PY{n+nf}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{method}\PY{p}{)}\PY{p}{:}
-            \PY{n}{yN} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
-            \PY{n}{y2N} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
-            \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y2N} \PY{o}{\PYZhy{}} \PY{n}{yN}
-        
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{,}\PY{n}{euler\PYZus{}method}\PY{p}{)}\PY{p}{)}
-        \PY{n}{richardson\PYZus{}y} \PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{richardson\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Richardson extrapolation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a817}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{x}
+
+\PY{k}{def} \PY{n+nf}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{method}\PY{p}{)}\PY{p}{:}
+    \PY{n}{yN} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{n}{y2N} \PY{o}{=} \PY{n}{method}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y2N} \PY{o}{\PYZhy{}} \PY{n}{yN}
+
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.1.7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{euler\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{richardson\PYZus{}extrapolation}\PY{p}{(}\PY{n}{a817}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{,}\PY{n}{euler\PYZus{}method}\PY{p}{)}\PY{p}{)}
+\PY{n}{richardson\PYZus{}y} \PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{richardson\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Richardson extrapolation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{euler\PYZus{}y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_11_0.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.2.1}\label{pc-exercise-8.2.1}
 
 Use the 2nd order truncated Taylor method (1.2) with equal length time
@@ -559,155 +963,235 @@ approximations to the solution \$ x(t) =
 truncated Taylor method (2.4). Plot \(\log_2\) of the global
 discretization error at time = 0.5 against \(\log_2 \Delta\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{a821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n}{t}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{sol821}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{a\PYZus{}t821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{a\PYZus{}x821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
-        
-        \PY{k}{def} \PY{n+nf}{a\PYZus{}tt821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{l+m+mi}{0}
-        
-        \PY{k}{def} \PY{n+nf}{a\PYZus{}tx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}
-        
-        \PY{k}{def} \PY{n+nf}{a\PYZus{}xx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}
-        
-        \PY{k}{def} \PY{n+nf}{taylor\PYZus{}2nd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{)}\PY{p}{:}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-            
-        \PY{k}{def} \PY{n+nf}{taylor\PYZus{}3rd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{,}\PY{n}{a\PYZus{}tt}\PY{p}{,}\PY{n}{a\PYZus{}tx}\PY{p}{,}\PY{n}{a\PYZus{}xx}\PY{p}{)}\PY{p}{:}
-            \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}
-                         \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} 
-                         \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} 
-                        \PY{p}{(}\PY{n}{a\PYZus{}tt}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a\PYZus{}tx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}xx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                         \PY{o}{+} \PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
-                
-            \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}
-        \PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}
-        \PY{n}{ans2} \PY{o}{=} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}
-        
-        \PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{taylor\PYZus{}2nd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{taylor\PYZus{}3rd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}2nd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}3rd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{t}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{sol821}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}t821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}x821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}tt821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}tx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}
+
+\PY{k}{def} \PY{n+nf}{a\PYZus{}xx821}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}
+
+\PY{k}{def} \PY{n+nf}{taylor\PYZus{}2nd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{)}\PY{p}{:}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+    
+\PY{k}{def} \PY{n+nf}{taylor\PYZus{}3rd}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{a\PYZus{}t}\PY{p}{,}\PY{n}{a\PYZus{}x}\PY{p}{,}\PY{n}{a\PYZus{}tt}\PY{p}{,}\PY{n}{a\PYZus{}tx}\PY{p}{,}\PY{n}{a\PYZus{}xx}\PY{p}{)}\PY{p}{:}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{n}{delta} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}
+                 \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta} \PY{o}{+} 
+                 \PY{p}{(}\PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} 
+                \PY{p}{(}\PY{n}{a\PYZus{}tt}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a\PYZus{}tx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{a\PYZus{}xx}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{a\PYZus{}t}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{o}{+} \PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a\PYZus{}x}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
+        
+    \PY{k}{return} \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}
+\PY{n}{t} \PY{o}{=}\PY{p}{[}\PY{n}{delta}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{ans1} \PY{o}{=} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}2nd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{taylor\PYZus{}2nd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{taylor\PYZus{}3rd}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{,}\PY{n}{a\PYZus{}t821}\PY{p}{,}\PY{n}{a\PYZus{}x821}\PY{p}{,}\PY{n}{a\PYZus{}tt821}\PY{p}{,}\PY{n}{a\PYZus{}tx821}\PY{p}{,}\PY{n}{a\PYZus{}xx821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{taylor\PYZus{}3rd\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}2nd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{taylor\PYZus{}3rd\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3rd Taylor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_13_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_13_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.2.2}\label{pc-exercise-8.2.2}
 
 Repeat PC-Exercise 8.2.1 using the 4th order Runge-Kutta method(2.8)
 with equal length time steps \(\Delta = 2^{-2} , \cdots , 2^{-7}\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-            \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                \PY{n}{k1} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-                \PY{n}{k2} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k1}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
-                \PY{n}{k3} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k2}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
-                \PY{n}{k4} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k3}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k3}\PY{o}{+}\PY{n}{k4}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
-                
-            \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}
-        \PY{n}{exact\PYZus{}x} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        
-        \PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{k1} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{k2} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k1}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{k3} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k2}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{k4} \PY{o}{=} \PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{o}{+}\PY{n}{delta}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{k3}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k3}\PY{o}{+}\PY{n}{k4}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
+        
+    \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}
+\PY{n}{exact\PYZus{}x} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol821}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Delta)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ld(Eps)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{11}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{error} \PY{o}{=} \PY{k}{lambda} \PY{n}{i} \PY{p}{:} \PY{n}{fabs}\PY{p}{(}\PY{n}{sol821}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}  \PY{o}{\PYZhy{}} \PY{n}{runge\PYZus{}kutta\PYZus{}4th}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{a821}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error} \PY{o}{=} \PY{p}{[}\PY{n}{log}\PY{p}{(}\PY{n}{error}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{runge\PYZus{}kutta\PYZus{}4th\PYZus{}error}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4th Runge Kutta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_15_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_15_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.2.3}\label{pc-exercise-8.2.3}
 
 Calculate the discretiztion errors in using the Euler method (1.2) and
@@ -718,45 +1202,74 @@ the solution \(x(t) = 2/3 e^{-3t} + 1/3\) of the initial value problem
 \(0 \le t \le 1\).Use time steps of equal length \(\Delta = 0.1\) and
 plot on x versus t axes
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{a823}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{x} \PY{o}{+}\PY{l+m+mi}{1} 
-        
-        \PY{k}{def} \PY{n+nf}{sol823}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}
-        
-        \PY{k}{def} \PY{n+nf}{midpoint\PYZus{}method}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
-            \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-            \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{,}\PY{n}{x0}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x0}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{]}
-            
-            \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                    \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-            
-            \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{n}{ans1} \PY{o}{=} \PY{n}{midpoint\PYZus{}method}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{a823}\PY{p}{)}
-        \PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a823}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
-        
-        \PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
-        \PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol823}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
-        
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Midpoint Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a823}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{x} \PY{o}{+}\PY{l+m+mi}{1} 
+
+\PY{k}{def} \PY{n+nf}{sol823}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}
+
+\PY{k}{def} \PY{n+nf}{midpoint\PYZus{}method}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{,}\PY{n}{x0}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x0}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{]}
+    
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+            \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+    
+    \PY{k}{return}\PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Results of PC\PYZhy{}Ex 8.2.3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x(t)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{ans1} \PY{o}{=} \PY{n}{midpoint\PYZus{}method}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{a823}\PY{p}{)}
+\PY{n}{ans2} \PY{o}{=} \PY{n}{euler\PYZus{}method}\PY{p}{(}\PY{n}{a823}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+
+\PY{n}{exact\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\PY{n}{exact\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{sol823}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{exact\PYZus{}x}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Midpoint Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ans2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Euler Method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exact\PYZus{}x}\PY{p}{,}\PY{n}{exact\PYZus{}y} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exact solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_17_0.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.2.3}\label{pc-exercise-8.2.3}
 
 Calculate 300 iterates of \$ y\_\{n+1\} = \frac{\pi}{3} y\_n \$ with
@@ -766,29 +1279,58 @@ siginificant figures. Plot the relative frequencies of the roundoff
 errors in histogram on the interval
 \([-5 \times 10^{-5} , 5 \times 10^{-5}]\) using 40 equal subintervals.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}合ってるか分からない}
-         
-         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{]}
-         \PY{n}{e} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
-             \PY{n}{ans} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{3}
-             \PY{n}{ans\PYZus{}} \PY{o}{=} \PY{n}{roundoff}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
-             \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ans}\PY{p}{)}
-             \PY{n}{e}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ans}\PY{o}{\PYZhy{}}\PY{n}{ans\PYZus{}}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}合ってるか分からない}
+
+\PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{]}
+\PY{n}{e} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+    \PY{n}{ans} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{3}
+    \PY{n}{ans\PYZus{}} \PY{o}{=} \PY{n}{roundoff}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+    \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ans}\PY{p}{)}
+    \PY{n}{e}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ans}\PY{o}{\PYZhy{}}\PY{n}{ans\PYZus{}}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_19_0.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.4.2}\label{pc-exercise-8.4.2}
 
 Use the Euler method with equal time steps \(\Delta = 2^{-2}\) for the
@@ -802,48 +1344,88 @@ plotting them in a histogram on the interval
 addition, calculate the sample mean and sample variance of the
 \(R_{1/\Delta}\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{x1} \PY{o}{=} \PY{l+m+mf}{0.4}
-         \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.6}
-         \PY{n}{t0} \PY{o}{=} \PY{l+m+mi}{0}
-         \PY{n}{t1} \PY{o}{=} \PY{l+m+mi}{1}
-         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
-         \PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
-         \PY{n}{R} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         \PY{n}{x0s} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
-         \PY{n}{a} \PY{o}{=} \PY{k}{lambda} \PY{n}{t}\PY{p}{,}\PY{n}{x} \PY{p}{:} \PY{n}{x}
-         
-         \PY{k}{for} \PY{n}{x0} \PY{o+ow}{in} \PY{n}{x0s}\PY{p}{:}
-             \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
-             \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-             \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-             \PY{n}{y\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
-             \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                 \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-                 \PY{n}{y\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{roundoff}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
-                 \PY{n}{r} \PY{o}{=} \PY{n}{r} \PY{o}{+} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
-             \PY{n}{R}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{R}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram of the accumulative roundoff error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the sample mean: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the standard deviation: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x1} \PY{o}{=} \PY{l+m+mf}{0.4}
+\PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.6}
+\PY{n}{t0} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{t1} \PY{o}{=} \PY{l+m+mi}{1}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+\PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{R} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{n}{x0s} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\PY{n}{a} \PY{o}{=} \PY{k}{lambda} \PY{n}{t}\PY{p}{,}\PY{n}{x} \PY{p}{:} \PY{n}{x}
+
+\PY{k}{for} \PY{n}{x0} \PY{o+ow}{in} \PY{n}{x0s}\PY{p}{:}
+    \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{n}{y\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
+    \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+        \PY{n}{y\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{roundoff}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{r} \PY{o}{=} \PY{n}{r} \PY{o}{+} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{n}{R}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{R}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram of the accumulative roundoff error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the sample mean: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the standard deviation: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_21_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: 1.025e-06
 the standard deviation: 0.000324287304659
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%
     \subsection{PC-Exercise 8.4.3}\label{pc-exercise-8.4.3}
 
 Repeat PC-Exercise 8.4.2 with N = 200 and with time steps \$\Delta =
@@ -851,119 +1433,280 @@ Repeat PC-Exercise 8.4.2 with N = 200 and with time steps \$\Delta =
 determining \(R_{1/\Delta}\) in each case. Plot the 90\% confidence
 intervals for the mean value of the error against \(\Delta\)
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{x1} \PY{o}{=} \PY{l+m+mf}{0.4}
-         \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.6}
-         \PY{n}{t0} \PY{o}{=} \PY{l+m+mi}{0}
-         \PY{n}{t1} \PY{o}{=} \PY{l+m+mi}{1}
-         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{200}
-         \PY{n}{D} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}
-         \PY{n}{x0s} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
-         \PY{n}{a} \PY{o}{=} \PY{k}{lambda} \PY{n}{t}\PY{p}{,}\PY{n}{x} \PY{p}{:} \PY{n}{x}
-         \PY{n}{M} \PY{o}{=}\PY{p}{[}\PY{p}{]}
-         \PY{n}{E} \PY{o}{=}\PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{delta} \PY{o+ow}{in} \PY{n}{D}\PY{p}{:}
-             \PY{n}{R} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-             \PY{k}{for} \PY{n}{x0} \PY{o+ow}{in} \PY{n}{x0s}\PY{p}{:}
-                 \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
-                 \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-                 \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
-                 \PY{n}{y\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
-                 \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                     \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
-                     \PY{n}{y\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{roundoff}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
-                     \PY{n}{r}  \PY{o}{=} \PY{n}{r} \PY{o}{+} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
-                 \PY{n}{R}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r}\PY{p}{)}
-         
-             \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{R}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram of the accumulative roundoff error. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Delta=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-             \PY{n}{M}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}
-             \PY{n}{E}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}
-             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the sample mean: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the standard deviation: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-             
-         
-         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{n}{yerr}\PY{o}{=}\PY{n}{E}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    % Add contents below.
 
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x1} \PY{o}{=} \PY{l+m+mf}{0.4}
+\PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.6}
+\PY{n}{t0} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{t1} \PY{o}{=} \PY{l+m+mi}{1}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{200}
+\PY{n}{D} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}
+\PY{n}{x0s} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\PY{n}{a} \PY{o}{=} \PY{k}{lambda} \PY{n}{t}\PY{p}{,}\PY{n}{x} \PY{p}{:} \PY{n}{x}
+\PY{n}{M} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{E} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{delta} \PY{o+ow}{in} \PY{n}{D}\PY{p}{:}
+    \PY{n}{R} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{x0} \PY{o+ow}{in} \PY{n}{x0s}\PY{p}{:}
+        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{t} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{t0}\PY{p}{,}\PY{n}{t1}\PY{o}{+}\PY{n}{delta}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{n}{x0}\PY{p}{]}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{x0}\PY{p}{]}
+        \PY{k}{for} \PY{n}{tn} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+            \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{)}
+            \PY{n}{y\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roundoff}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{roundoff}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{tn}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{delta}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+            \PY{n}{r}  \PY{o}{=} \PY{n}{r} \PY{o}{+} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{R}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+
+    \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{R}\PY{p}{,} \PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histgram of the accumulative roundoff error. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Delta=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{delta}\PY{p}{)}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probability}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+    \PY{n}{M}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}
+    \PY{n}{E}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the sample mean: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the standard deviation: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    
+
+\PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{n}{yerr}\PY{o}{=}\PY{n}{E}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_0.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: 1.20000000001e-05
 the standard deviation: 9.11083070751e-05
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_2.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: 3.41250000001e-05
 the standard deviation: 0.000312282987337
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_4.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: 5.94127765657e-05
 the standard deviation: 0.000922845423741
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_6.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: -0.000101172383901
 the standard deviation: 0.00274883149193
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_8.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: -3.73152599851e-05
 the standard deviation: 0.011533389933
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_10.png}
     \end{center}
     { \hspace*{\fill} \\}
+    }%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
     
     \begin{Verbatim}[commandchars=\\\{\}]
 the sample mean: -0.00284901663429
 the standard deviation: 0.0161027490365
 
     \end{Verbatim}
-
+}%
+    \end{addmargin}%\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{PC-ExerciseChapter8_files/PC-ExerciseChapter8_23_12.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    }%
+    \end{addmargin}%
 
     % Add a bibliography block to the postdoc
     

@@ -560,7 +560,7 @@
 \defb
 $(\F_t)_{t\ge0}$が{\bf 情報増大系}であるとは,
 \[
-\F_t \subset \F : sub\ \sigma-alg \mbox{かつ} 0\le s \le t \Rightarrow \F_s \subset \F_s
+\F_t \subset \F : \mbox{sub}\sigma\mbox{-algかつ}\  0\le s \le t \Rightarrow \F_s \subset \F_s
 \]
 となることである.\\
 また$d$次元確率過程$X=(X_t)_{t\ge 0}$が情報増大系$(\F_t)_{t\ge0}$に対して{\bf 適合(adapted)}しているとは,
@@ -637,10 +637,10 @@ M_t(f) \equiv \int_0^t f_s dB_s := \sum_{j=1}^n \tilde{f_j} (B_{t\wedge t_j} - B
 \begin{frame}{伊藤積分の性質}
 \thm
 確率積分$M_t(f) = \int_0^t f_sdB_s$は次をみたす.\\
-(1)$M_t(f)$は$\F_t$マルチンゲールである.\\
-(2)$E(M_t(f))=0$\\
-(3)$E(M_t(f)^2) = \int_0^T E(f(t,-)^2)dt$\\
-(4)$I(af+bg) = aI(f)+bI(g)\ $a.s.\\
+(1)\[M_t(f)\mbox{は} \F_t \mbox{マルチンゲールである.}\]
+(2)\[E(M_t(f))=0\]
+(3)\[E(M_t(f)^2) = \int_0^T E(f(t,-)^2)dt\]
+(4)\[M_t(af+bg) = aM_t(f)+bM_t(g)\ a.s.\]
 \thmx
 \end{frame}
 

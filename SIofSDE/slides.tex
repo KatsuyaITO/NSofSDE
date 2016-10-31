@@ -1,0 +1,972 @@
+\documentclass[dvipdfmx,cjk]{beamer} 
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}} 
+\usetheme{CambridgeUS} 
+\usecolortheme{seahorse}
+
+\setbeamertemplate{theorems}[numbered]
+
+
+\numberwithin{equation}{section}
+\newtheorem{Thm}     {定理}[section]
+\newtheorem{Def}     [Thm]{定義}
+\newtheorem{Prop}    [Thm]{命題}
+\newtheorem{Fact}    [Thm]{事実}
+\newtheorem{Cor}     [Thm]{系}  
+\newtheorem{Conj}    [Thm]{予想}
+\newtheorem{Ex}      [Thm]{例}  
+\newtheorem{Achiom}   [Thm]{公理}
+\newtheorem{Method}[Thm]{方法} 
+\newtheorem{Rem}  [Thm]{注意}
+\newtheorem{Notation}[Thm]{記法}
+\newtheorem{Symbol}  [Thm]{記号}
+\newtheorem{Prob}    [Thm]{問題}
+\makeatletter
+
+
+\newenvironment{lightgrayleftbar}{%
+  \def\FrameCommand{\textcolor{lightgray}{\vrule width 1zw} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\def\C{\mathbb C}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+\def\iff{\Leftrightarrow}
+\def\R{\mathbb R}
+\def\F{\mathcal F}
+\def\method{\begin{Method}}
+\def\methodx{\end{Method}}
+\def\thm{\begin{Thm}}
+\def\thmx{\end{Thm}}
+\def\prop{\begin{Prop}}
+\def\propx{\end{Prop}}
+\def\frameb{\begin{frame}}
+\def\framex{\end{frame}}
+\def\defb{\begin{Def}}
+\def\defe{\end{Def}}
+\def\defx{\end{Def}}
+\newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
+\def\rem{\begin{Rem}}
+\def\remx{\end{Rem}}
+\def\prob{\begin{Prob}}
+\def\probx{\end{Prob}}
+\def\lem{\begin{Lemma}}
+\def\lemx{\end{Lemma}}
+\def\ex{\begin{Ex}}
+\def\exx{\end{Ex}}
+\def\cor{\begin{Cor}}
+\def\corx{\end{Cor}}
+\def\proof{\begin{Proof}}
+\def\proofx{\end{Proof}}
+\def\eq{\begin{equation}}
+\def\eqx{\end{equation}}
+\def\eqa{\begin{eqnarray}}
+\def\eqax{\end{eqnarray}}
+\def\bbL{\mathbb L}
+\def\calL{\mathcal L}
+
+    
+        
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    \usepackage{tikz} % Needed to box output/input
+    \usepackage{scrextend} % Used to indent output
+    \usepackage{needspace} % Make prompts follow contents
+    \usepackage{framed} % Used to draw output that spans multiple pages
+
+
+    
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PC-ExerciseChapter9}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % NB prompt colors
+    \definecolor{nbframe-border}{rgb}{0.867,0.867,0.867}
+    \definecolor{nbframe-bg}{rgb}{0.969,0.969,0.969}
+    \definecolor{nbframe-in-prompt}{rgb}{0.0,0.0,0.502}
+    \definecolor{nbframe-out-prompt}{rgb}{0.545,0.0,0.0}
+
+    % NB prompt lengths
+    \newlength{\inputpadding}
+    \setlength{\inputpadding}{0.5em}
+    \newlength{\cellleftmargin}
+    \setlength{\cellleftmargin}{0.15\linewidth}
+    \newlength{\borderthickness}
+    \setlength{\borderthickness}{0.4pt}
+    \newlength{\smallerfontscale}
+    \setlength{\smallerfontscale}{9.5pt}
+
+    % NB prompt font size
+    \def\smaller{\fontsize{\smallerfontscale}{\smallerfontscale}\selectfont}
+
+    % Define a background layer, in which the nb prompt shape is drawn
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main}
+    \usetikzlibrary{calc}
+
+    % define styles for the normal border and the torn border
+    \tikzset{
+      normal border/.style={draw=nbframe-border, fill=nbframe-bg,
+        rectangle, rounded corners=2.5pt, line width=\borderthickness},
+      torn border/.style={draw=white, fill=white, line width=\borderthickness}}
+
+    % Macro to draw the shape behind the text, when it fits completly in the
+    % page
+    \def\notebookcellframe#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};% Draw the text of the node
+      \begin{pgfonlayer}{background}% Draw the shape behind
+      \fill[normal border]%
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \end{pgfonlayer}}}%
+
+    % Macro to draw the shape, when the text will continue in next page
+    \def\notebookcellframetop#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};    % Draw the text of the node
+      \begin{pgfonlayer}{background}    
+      \fill[normal border]              % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]                % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when the text continues from previous page
+    \def\notebookcellframebottom#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Macro to draw the shape, when both the text continues from previous page
+    % and it will continue in next page
+    \def\notebookcellframemiddle#1{%
+    \tikz{%
+      \node[inner sep=\inputpadding] (A) {#1};   % Draw the text of the node
+      \begin{pgfonlayer}{background}   
+      \fill[normal border]             % Draw the ``complete shape'' behind
+            (A.south east) -- ($(A.south west)+(\cellleftmargin,0)$) -- 
+            ($(A.north west)+(\cellleftmargin,0)$) -- (A.north east) -- cycle;
+      \fill[torn border]               % Add the torn lower border
+            ($(A.south east)-(0,.1)$) -- ($(A.south west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.south west)+(\cellleftmargin,.1)$) -- ($(A.south east)+(0,.1)$) -- cycle;
+      \fill[torn border]               % Add the torn upper border
+            ($(A.north east)-(0,.1)$) -- ($(A.north west)+(\cellleftmargin,-.1)$) -- 
+            ($(A.north west)+(\cellleftmargin,.1)$) -- ($(A.north east)+(0,.1)$) -- cycle;
+      \end{pgfonlayer}}}
+
+    % Define the environment which puts the frame
+    % In this case, the environment also accepts an argument with an optional
+    % title (which defaults to ``Example'', which is typeset in a box overlaid
+    % on the top border
+    \newenvironment{notebookcell}[1][0]{%
+      \def\FrameCommand{\notebookcellframe}%
+      \def\FirstFrameCommand{\notebookcellframetop}%
+      \def\LastFrameCommand{\notebookcellframebottom}%
+      \def\MidFrameCommand{\notebookcellframemiddle}%
+      \par\vspace{1\baselineskip}%
+      \MakeFramed {\FrameRestore}%
+      \noindent\tikz\node[inner sep=0em] at ($(A.north west)-(0,0)$) {%
+      \begin{minipage}{\cellleftmargin}%
+    \hfill%
+    {\smaller%
+    \tt%
+    \color{nbframe-in-prompt}%
+    In[#1]:}%
+    \hspace{\inputpadding}%
+    \hspace{2pt}%
+    \hspace{3pt}%
+    \end{minipage}%%
+      }; \par}%
+    {\endMakeFramed}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+   
+\usepackage{url}
+
+\begin{document}
+\title[Parametric Estimation of SDE]{Parametric Estimation of SDE} 
+\author[Katsuya ITO]{伊藤克哉} 
+\institute[UT]{東京大学}
+\date{2016/10/31}
+
+\begin{frame}
+\titlepage    
+\end{frame}
+\begin{frame}
+講義ノート･スライド･コードは\\
+\url{https://github.com/KatsuyaITO/NSofSDE}
+\end{frame}
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+
+
+\section{Parametric Estimation of SDE}
+\begin{frame}{Continuousな場合}
+
+\[
+dX_t = b_\theta (X_t) dt + \sigma_\theta(X_t) dW_t
+\]
+$\theta$によりパラメトライズされた自励系のSDE.\\
+$\theta \in \Theta \subset \R^p$は$p$個のパラメータであり,$\theta_0$を推測する.
+\end{frame}
+
+\begin{frame}{ergodicな場合}
+
+過程がエルゴード性を満たし,連続的である場合には容易に最尤法を適用することができる.\\
+連続的な場合は実務上は起こりにくいが,理論的には重要である
+\end{frame}
+
+\begin{frame}{ergodicとは}
+\defb
+$X_t$という過程がergodicであるとは,$\exists\xi$:確率変数,$\forall h(x)$:可測関数
+\[
+\lim_{T\to \infty} \frac{1}{T} \int_0^T h(X_t) dt  \to E[h(\xi)]
+\]
+が成立すること.\\
+このとき,$\xi$の分布関数を$\pi$と置いて,{\bf invariant density}またはstationary densityという.
+\defx
+\end{frame}
+\begin{frame}{ergodicの特徴付け}
+
+\thm
+recurrentでpositiveな過程はergodicであり,このときinvariant density\ $\pi$は
+\[
+\pi(x) = \frac{1}{G\sigma(x)^2} 
+	\exp 
+	\biggl\{ 
+		2 \int_0^x \frac{b(y)}{\sigma(y)^2}dy 
+	\biggl\}
+\]
+として表される.
+\thmx
+\end{frame}
+
+\begin{frame}{recurrentとpositiveとは}
+\defb
+\[
+\tau_a = \inf \{ t\ge 0 |X_t =a \} , \tau_{ab} = \inf \{ t \ge \tau_a | X_t =b \}
+\]
+と定める.
+過程$X_t$が{\bf recurrent}であるとは,$P(\tau_{ab} < \infty) =1$が任意の$a,b\in\R$に対して成り立つことである.\\
+recurrentな過程$X_t$が{\bf positive}であるということは,$E[\tau_{ab}] < \infty$が任意の$a,b\in\R$に対して成り立つことである.\\
+\defx
+\end{frame}
+
+\begin{frame}{recurrentとpositiveに対する特徴付け}
+\prop
+\[
+dX_t = b (X_t) dt + \sigma (X_t) dW_t
+\]
+という過程がrecurrentである $\iff$
+\[
+V(x) = \int_{0}^x \exp \biggl( -2 \int_{0}^y \frac{b(u)}{\sigma(u)^2} du \biggl) dy   \to \pm\infty \ \ x\to \pm\infty
+\]
+recurrentな過程がpositiveである $\iff$
+\[
+G= \int_{-\infty}^\infty \sigma(y)^{-2} \exp \biggl( 2 \int_{0}^y \frac{b(u)}{\sigma(u)^2} du \biggl) dy  < \infty
+\]
+\propx
+\end{frame}
+
+
+\begin{frame}{ergodicな場合の最尤推定}
+任意の$\theta$に対してergodicな過程を考える.\pause 
+まずquadratic variation を計算して,
+\[
+<X,X>_t = \lim_{n\to\infty} \sum_{k=1}^{2^n} (X_{t\wedge (k/2^n)} - X_{t\wedge ((k-1)/2^n)})^2 =
+\int_0^t \sigma^2(X_s,\theta)ds 
+\]
+$\sigma$のパラメータを推定する.\\ \pause
+その後,Girsanovの定理によって,次のように尤度が表される.
+\[
+L_T(\theta) = \frac{dP_1}{dP}(X)  
+	= \exp \biggl( \int_0^T \frac{b_\theta(X_s)}{\sigma^2(X_s)} dX_s - 
+	\frac{1}{2} \int_0^T \frac{ b_\theta^2(X_s) }{\sigma^2(X_s)} ds
+	 \biggl)
+\]
+つまりこの尤度を最大にするような$\theta$を求めれば良い.\\
+
+\end{frame}
+
+\begin{frame}{Girsanovの定理}
+\thm[Girsanov]
+\eqa
+dX_t &=& b_1(X_t) dt + \sigma(X_t) dW_t ,\ X_0 = X_0^{(1)} \\
+dX_t &=& b_2(X_t) dt + \sigma(X_t) dW_t ,\ X_0 = X_0^{(2)} \\
+dX_t &=& \sigma(X_t) dW_t ,\ X_0 = X_0
+\eqax
+という$t\in [0,T]$上で定義された3つの伊藤過程を考える.\\
+この過程から引き起こされる確率測度を$P_1,P_2,P_3$とおく.\\
+ここで,各$b$と$\sigma$はGlobal Lipschitzであり,Linear growthであると仮定する(ゆえに各確率微分方程式の解が存在する)\\
+さらに,$f_1,f_2,f$という初期値たちの密度関数は同じサポートを持つと仮定する.\\
+
+\thmx
+
+\end{frame}
+\begin{frame}{Girsanovの定理}
+このとき次のようにしてこれらのRadon-Nikodym微分が存在して,次のように表される.
+\[
+\frac{dP_1}{dP}(X) = \frac{f_1(X_0)}{f(X_0)} 
+\exp \biggl\{
+	\int_0^T \frac{b_1(X_s)}{\sigma^2(X_s)} dX_s - 
+	\frac{1}{2} \int_0^T \frac{ b_1^2(X_s) }{\sigma^2(X_s)} ds
+	 \biggl\}
+\]
+
+\[
+\frac{dP_2}{dP_1}(X) = \frac{f_2(X_0)}{f_1(X_0)} 
+\exp \biggl\{
+	\int_0^T \frac{b_2(X_s)-b_1(X_s)}{\sigma^2(X_s)} dX_s - 
+	\frac{1}{2} \int_0^T \frac{b_2^2(X_s)- b_1^2(X_s) }{\sigma^2(X_s)} ds
+	 \biggl\}
+\]
+\end{frame}
+
+
+\subsection{Exact likelihood inference}
+
+\begin{frame}{Exact likelihood inference}
+
+\subsubsection{Ornstein-Uhlenbeck model}
+\[
+dX_t = (\theta_1 - \theta_2 X_t )  dt + \theta_3 dW_t ,\  X_0=x_0, \ \theta_1,\theta_2\in \R,\theta_3>0
+\]
+であるようなOrnstein-Uhlenbeck 過程に対して,条件付き密度関数は
+\[
+p_\theta(t,\cdot | x) \sim N(m(t,x),v(t,x))
+\]
+\[
+m(t,x) = \frac{\theta_1}{\theta_2} + (x_0 -\frac{\theta_1}{\theta_2} ) e^{-\theta_2 t}
+\]
+\[
+v(t,x) = \frac{\theta_3^2(1-e^{-2\theta_2 t})}{2\theta_2} 
+\]
+という平均と分散をもつ正規分布に従う.故にこれにより直接尤度を計算することができる.
+\end{frame}
+\begin{frame}{geometric Brownian motion}
+次のように表されるgeometric Brownian motionを考える.
+\[
+dX_t = \theta_1 X_t dt + \theta_2 X_t dW_t , \ X_0 = x_0 ,\ \theta_1 \in \R,\ \theta_2 >0
+\]
+同様に,このモデルの条件付き密度関数は,
+\[
+p_\theta (t,\cdot | x)  \sim LN(m(t,x),v(t,x))
+\]
+\[
+m(t,x)=xe^{\theta_1 t},\ v(t,x)=x^2 e^{2\theta_1 t} (e^{\theta_2^2 t} -1)
+\]
+というような対数正規分布によって表される.故にこれにより直接尤度を計算することができる.
+\end{frame}
+\begin{frame}{Cox-Ingersoll-Ross Model}
+\subsubsection{Cox-Ingersoll-Ross Model}
+次のように表されるCox-Ingersoll-Rossモデルを考える.
+\[
+dX_t = (\theta_1 - \theta_2 X_t )  dt + \theta_3 \sqrt[]{X_t} dW_t ,\  X_0=x_0>0, \ \theta_1,\theta_2 \theta_3>0
+\]
+同様に,このモデルの条件付き密度関数は,
+\[
+p_\theta (t,\cdot | x) = c\exp{-u-v} \biggl(\frac{u}{v}\biggl)^{q/2} I_q(2\sqrt[]{uv}),\ x,y>0
+\]
+という風に表される.ただし,
+\[
+c = \frac{2\theta_2}{\theta_2^3(1-e^{-\theta_2 t})} , q= \frac{2\theta_1}{\theta_3^2} -1
+\]
+\[
+u = cx\exp{-\theta_2 t} , v = cy
+\]
+であり,$I_q$は修正Bessel関数である.
+\[
+I_q(x)= \sum_{k=0}^\infty \biggl( \frac{x}{2}\biggl)^{2k+q} \frac{1}{k! \Gamma(k+q+1)}
+\]
+\end{frame}
+\subsection{Pseudo-likelihood methods}
+
+\begin{frame}{Pseudo-likelihood methods}
+SDEの離散近似スキームを使ってパスを生成し,過程の尤度を求める方法を{\bf Pseudo-likelihood法}という.\\
+ここでは,
+\begin{enumerate}
+\item Euler method
+\item Elerian method
+\item Shoji-Ozaki method
+\end{enumerate}
+について考える.
+\end{frame}
+
+\subsubsection{Euler method}
+\begin{frame}{Euler method}
+\[
+dX_t = b_\theta (X_t) dt + \sigma_\theta(X_t) dW_t
+\]
+という確率微分方程式に対してEuler-Maruyama 近似を適用すると,
+\[
+\Delta X = b_\theta (X_t) \Delta t + \sigma_\theta(X_t) \Delta W_t
+\]
+であるので,$\Delta X$はそれぞれ,平均$b_\theta(X_t)$分散$ \sigma^2_\theta(X_t) $の正規分布に従っている.
+\end{frame}
+
+\begin{frame}{Euler method}
+
+故に,Euler-Maruyama近似が強収束するとき,この対数尤度$l_n(\theta)$は
+\[
+l_n(\theta) = -\frac{1}{2}
+	 \biggl\{ \sum_{i=1}^n \frac{X_i - X_{i-1} -b(X_{i-1},\theta)\Delta)^2}{\sigma^2 \Delta} + n\log (2\pi \sigma^2 \Delta)
+	 \biggl\}
+\]
+という式によって表される.\par
+N.Yoshida(1992)によると,
+\[
+\hat{\sigma}^2 = \frac{1}{n\Delta} \sum_{i=1}^n (X_i - X_{i-1})^2
+\]
+によって$\sigma$を推定することができる.
+\end{frame}
+
+\begin{frame}{Exact Likelihood v.s. Euler}
+
+ここで,最初に述べたExact likelihoodとEuler approximationの性質を見てみる.
+\[
+dX_t = (\theta_1 - \theta_2 X_t )  dt + \theta_3 dW_t ,\  X_0=x_0, \ \theta_1,\theta_2\in \R,\theta_3>0
+\]
+というOrnstein-Uhlenbeck過程に対して2つの方法を適用しすると,\pause
+\[
+m(\Delta,x) = x\exp(-\theta_2\Delta) + \frac{\theta_1}{\theta_2} (1- \exp(-\theta_2 \Delta)) , 
+\ v(\Delta,x) = \frac{\theta_3^2(1-\exp^{-2\theta_2 \Delta})}{2\theta_2} 
+\]
+という平均と分散が得られ,またEuler approximationを行うと,\pause
+\[
+m(\Delta,x) = x(1-\theta_2 \Delta) + \theta_1 \Delta , \ v(\Delta,x) = \theta_3^2 \Delta
+\]
+という平均と分散が得られる.これらは,$\Delta \to 0$では一致する.
+\end{frame}
+
+\begin{frame}{Exact Likelihood v.s. Euler}
+一方で,
+\[
+dX_t = \theta_1 X_t dt + \theta_2 X_t dW_t , \ X_0 = x_0 ,\ \theta_1 \in \R,\ \theta_2 >0
+\]
+というgeometric Brownian motionを考える.この時,上の式出てきた最尤法を当てはめると,\pause
+\[
+\hat{\theta}_{1,n} = \frac{1}{n\Delta} \sum_{i=1}^n \biggl( \frac{X_i}{X_{i-1}} -1 \biggl),
+\hat{\theta}_{2,n} = \frac{1}{n\Delta} \sum_{i=1}^n \biggl( \frac{X_i}{X_{i-1}} -1  - \hat{\theta}_{1,n}^2 \Delta \biggl),
+\]
+という最尤推定値を得る.ここで,$\Delta$が無視できないほど大きい場合を考えると,\pause
+\[
+\hat{\theta}_{1,n} \to \frac{1}{\Delta} (e^{\theta_1 \Delta} -1 ) \neq \theta_1,
+\hat{\theta}_{2,n} \to \frac{1}{\Delta}e^{2 \theta_1 \Delta}  (e^{\theta_2^2 \Delta} -1 ) \neq \theta_2
+\]
+という確率収束が得られるので,$\Delta$の影響は大きい.
+
+\end{frame}
+\begin{frame}{Elerian method}
+
+\subsubsection{Elerian method}
+Milstein近似により,
+\[
+\Delta X_t = b(t,X_t)\Delta t + \sigma(t,X_t) \Delta W + \frac{1}{2} \sigma(t,X_t)\sigma_x(t,X_t)((\Delta W)^2 - \Delta t)
+\]
+\thm
+Milstein近似がオーダー$1$で強収束しているとき
+\[
+p(t,y|x) = \frac{z^{-1/2} \cosh (\sqrt[]{Cz}) }{|A|\sqrt[]{2\pi}} \exp(-\frac{C+z}{2})
+\]
+として得られる.ただし,
+\[
+A =\frac{\sigma(x)\sigma_x(x) t}{2} , B = -\frac{\sigma(x)}{2\sigma_x(x)}+x+b(x)t-A,
+\]
+\[
+z = \frac{y-B}{A} , C = \frac{1}{\sigma^2_x(x) t}
+\]
+\thmx
+
+\end{frame}
+
+\begin{frame}{Shoji-Ozaki method}
+\subsubsection{Shoji-Ozaki method}
+Shoji-Ozaki法
+\[
+dX_t = b (t,X_t) dt + \sigma dW_t
+\]
+というSDEを$[s,s+\Delta s)$上で局所的に近似
+\[
+dX_t = (L_s X_t + tM_s + N_s )dt+ \sigma  dW_t
+\]
+ただし,
+\[
+L_s = b_x(s,X_s) , \ M_s = \frac{\sigma^2}{2} b_{xx} (s,X_s) + b_t(s,X_s)
+\]
+\[
+N_s = b(s,X_s) - X_s b_x(s,X_s) - sM_s
+\]
+
+\end{frame}
+
+\begin{frame}{Shoji-Ozaki method}
+$X_t$に対して,$Y_t = e^{-L_s t } X_t $変換することによって,
+\[
+Y_t = Y_s + \int_s^t (M_s u + N_s ) e^{-L_s u} du + \sigma \int_{s}^t e^{-L_s u} dW_u
+\]
+というSDEが得られる.\\
+\pause
+これを部分的に解いて,$X_t$に戻す事によって,
+\[
+X_{s+\Delta s} = A(X_s)X_s + B(X_s) Z
+\]
+
+ただし,
+\eqa
+A(X_s) &=& 1 + \frac{b(s,X_s)}{X_s L_s} (e^{L_s \Delta s} -1 ) +
+\frac{M_s}{X_s L_s^2} (e^{L_s \Delta s} -1  - L_s \Delta s) \\
+B(X_s) &=& \sigma\ \sqrt[]{ \frac{\exp{2L_s \Delta s} -1 }{2L_s}},\ Z\sim N(0,1)
+\eqax
+
+である.これを利用することによって,尤度関数を計算することができる.
+
+\end{frame}
+\subsection{Approximated likelihood methods}
+\begin{frame}{Approximated likelihood methods}
+次に,パスを近似するのではなく直接尤度を近似する
+{\bf Approximated likelihood methods}について考える.
+\begin{enumerate}
+\item Kessler method
+\item Simulated likelihood method
+\item Shoji-Ozaki method
+\end{enumerate}
+について考える.
+\end{frame}
+
+\subsubsection{Kessler method}
+\begin{frame}{Kessler method}
+
+\[
+dX_t = b_\theta (X_t) dt + \sigma_\theta(X_t) dW_t
+\]
+というような自励系のergodicな確率過程を考える.\\
+ここで
+\[
+t^n_i = i \Delta_n
+\]
+とおいて,この幅で離散化することを考える.\\
+ここで,Ito-Taylor展開を考え,
+\[
+r_l(\Delta_n,x,\alpha) =\sum_{i=0}^l
+	\frac{\Delta_n^i}{i!}L^i_\alpha f(x)
+\]
+という第$l$項まで展開したものを考える.
+\end{frame}
+\begin{frame}{Kessler method}
+このとき,$n\Delta_n^p \to 0$であるとする.
+$k_0 = [p/2]$と定めると次のようにして,尤度を定めることができる.
+\[
+l_{p,n}(\alpha) =
+\sum_{i=1}^n
+	\frac{(X_{t^n_i} - r_{k_0}(\Delta_n,X_{t^n_{i-1}},\alpha))^2}{\Delta_n \sigma^2_{i-1}(\theta)}
+	\biggl\{
+		1+\sum_{j=1}^{k_0} \Delta_n^j d_j(X_{t^n_{i-1}},\alpha)
+	\biggl\}
+\]
+\[	
++ \sum_{i=1}^n
+	\biggl\{
+		\log \sigma^2_{i-1}(\theta) + 
+		\sum_{j=1}^{k_0} + \Delta_n^j e_j(X_{t^n_{i-1}},\alpha)
+	\biggl\}
+\]
+
+ただし,$d_j,e_j$は特別な関数のTaylor展開をしたときの係数である.
+\end{frame}
+\begin{frame}{Simulated likelihood method}
+
+$p_\theta(\Delta,y|x)$を求めることを考える.$\delta \ll \Delta$とする.このとき,
+\[
+p_\theta(\Delta,y|x) = 
+\int p_\theta(\delta,y|z)p_\theta(\Delta - \delta,z|x)dz 
+= E_z[p_\theta(\delta,y|z)|\Delta-\delta]
+\]
+であることがわかる.ここで,右の期待値をMonte Carlo法によって求めると,
+$p_\theta(\Delta - \delta,z|x)$は正規分布であるので,
+\[
+\hat{p}_\theta^{(N,M)}(\Delta,X_{t+\Delta}|x)
+= \frac{1}{M}\sum_{i=1}^M \phi_\theta(\delta,X_{t+\Delta}|z_i)
+\]
+として,確率密度関数を求めることができる.
+\end{frame}
+\subsubsection{Hermite polynomials expansion of the likelihood}
+\begin{frame}{Hermite polynomials expansion of the likelihood}
+\[
+H_j(z) = e^{\frac{z^2}{2}} \frac{d^j}{dz^j} e^{-\frac{z^2}{2}} 
+\]
+という修正Hermite多項式を考える.
+\[
+F(\gamma) = \int_0^\gamma \frac{du}{\sigma_\theta(u)}
+\]
+というLamperti変換を加えることによって,まず
+\[
+dY_t = \mu_Y(Y_t,\theta)dt + dW_t
+\]
+という風に変換する.その次に,
+\[
+Z = \Delta^{-1/2} (Y-y_0)
+\]
+という変換を施す.
+\end{frame}
+\begin{frame}{Hermite polynomials expansion of the likelihood}
+\[
+p_Z(\Delta,z|y_0,\theta) = \Delta^{1/2} p_Y(\Delta,\Delta^{1}{2}z+y_0|y_0,\theta)
+\]
+という確率密度関数を求めることを考える.ここで,$H_j(z)/\sqrt[]{j!}$は$L^2$空間の直交基底であることを使うと,$p_Z$を分解することができる.そして,その展開を途中で打ち切ることによって,尤度の近似を行う.
+\end{frame}
+
+\end{document}
