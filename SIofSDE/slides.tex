@@ -552,7 +552,104 @@
 \tableofcontents
 \end{frame}
 
+\section{Numerical methods for SDE}
 
+\subsection{Lamperti transform}
+\begin{frame}{Lamperti transform}
+以下では
+\[
+dX_t = b(t,X_t)dt + \sigma(X_t)dW_t
+\]
+というSDEの解$X_t$について考える.このとき,
+\[
+Y_t = F(X_t) = \int_z^{X_t} \frac{1}{\sigma(u)}du
+\]
+という変換を施すと,
+\[
+dY_t = b_Y (t,Y_t)dt + dW_t
+\]
+とできる.
+\end{frame}
+\begin{frame}{Shoji-Ozaki method}
+\subsection{Shoji-Ozaki method}
+Shoji-Ozaki法
+\[
+dX_t = b (t,X_t) dt + \sigma dW_t
+\]
+というSDEを$[s,s+\Delta s)$上で局所的に近似
+\[
+dX_t = (L_s X_t + tM_s + N_s )dt+ \sigma  dW_t
+\]
+ただし,
+\[
+L_s = b_x(s,X_s) , \ M_s = \frac{\sigma^2}{2} b_{xx} (s,X_s) + b_t(s,X_s)
+\]
+\[
+N_s = b(s,X_s) - X_s b_x(s,X_s) - sM_s
+\]
+
+\end{frame}
+
+\begin{frame}{Shoji-Ozaki method}
+$X_t$に対して,$Y_t = e^{-L_s t } X_t $変換することによって,
+\[
+Y_t = Y_s + \int_s^t (M_s u + N_s ) e^{-L_s u} du + \sigma \int_{s}^t e^{-L_s u} dW_u
+\]
+というSDEが得られる.\\
+\pause
+これを部分的に解いて,$X_t$に戻す事によって,
+\[
+X_{s+\Delta s} = A(X_s)X_s + B(X_s) Z
+\]
+
+ただし,
+\eqa
+A(X_s) &=& 1 + \frac{b(s,X_s)}{X_s L_s} (e^{L_s \Delta s} -1 ) +
+\frac{M_s}{X_s L_s^2} (e^{L_s \Delta s} -1  - L_s \Delta s) \\
+B(X_s) &=& \sigma\ \sqrt[]{ \frac{\exp{2L_s \Delta s} -1 }{2L_s}},\ Z\sim N(0,1)
+\eqax
+
+\end{frame}
+\subsection{Exact Sampling}
+
+\begin{frame}{Exact Sampling(基本的な場合の棄却法)}
+$g$という確率密度関数をもつ確率変数の生成法を知っている.\\
+$f$という確率密度関数をもつ確率変数を生成したい
+\[
+f(x) \le \epsilon g(x)
+\]
+というような$\epsilon >0$が存在しているとする.\\
+このとき次のアルゴリズムに従えば良い.
+\begin{enumerate}
+ \item $g$に従う数$y$を1つ生成する.
+ \item 一様分布$U(0,1)$に従う乱数$u$を1つ生成する.
+ \item $u < \epsilon f(y)/g(y) $を満たすならば,$y$を採用し,それ以外ならば$1$に戻る.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exact Sampling(確率微分方程式に応用)}
+$b$が$x$で偏微分可能であり,$\frac{1}{2} b^2(x) + \frac{1}{2}b_x(x)$が上にも下にも有界であると仮定する.\\
+ここで,$k_1 \le \frac{1}{2} b^2(x) + \frac{1}{2}b_x(x) \le k_2$であるとする.\\
+\[
+\phi (x) =\frac{1}{2} b^2(x) + \frac{1}{2}b_x(x) -k_1, \ M= k_2 - k_1
+\]
+とおく.
+\[
+h(z) = \exp \biggl \{ \int_0^z b(u)du - \frac{(z-x)^2}{2\Delta} \biggl\}
+\]
+を規格化して,$\hat{h}$とおく.この時次のアルゴリズムに従えば良い.
+
+\end{frame}
+
+\begin{frame}{Exact Sampling}
+\begin{enumerate}
+ \item $\hat{h}$に従うような$y$を生成する.
+ \item $0$のとき$0$で,$\Delta$のとき$y$のブラウン橋を作る.
+ \item $k$を$\lambda=\Delta M$のPoisson過程から作る.
+ \item $[0,T]\times [0,M]$上の一様分布の実現$\{x_1,\cdots,x_k\}$,$x_i = (t_i,v_i)$を得る.
+ \item 全ての$i$について$\phi(y_i) \le v_i$ならば採用し,それ以外ならば$1$に戻る.
+\end{enumerate}
+\end{frame}
 
 \section{Parametric Estimation of SDE}
 \begin{frame}{Continuousな場合}
