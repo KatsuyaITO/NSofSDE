@@ -7,7 +7,6 @@
 * テキスト3 [Kusuoka] Kusuoka, Shigeo. "Approximation of expectation of diffusion processes based on Lie algebra and Malliavin calculus." Advances in mathematical economics. Springer Japan, 2004. 69-83.
 	
 * テキスト4 [LordPowellShardlow]  Lord, Gabriel J., Catherine E. Powell, and Tony Shardlow. An introduction to computational stochastic PDEs. No. 50. Cambridge University Press, 2014.
-APA	
 
 * 発表者 伊藤克哉(E-mail:k1ito(a)ms.u-tokyo.ac.jp, (a)=@)
 * 時間 毎週月曜日3限(13:00〜14:45)
@@ -28,6 +27,8 @@ APA
 * 第5回(2016/11/07):[Kusuoka] 
 * 2016/11/14: 先生の御用事のため休講
 * 第6回(2016/11/21):[LordPowellShardlow] 
+
+
 ##備考
 * [jupyter notebook](https://ipython.org/index.html "jupyter notebook")をインストールすると簡単にpythonコードを実行･編集する事ができます.
 * [Iacus]は東大のネットーワーク内からSpringerLinkにアクセスするとダウンロードできます.
