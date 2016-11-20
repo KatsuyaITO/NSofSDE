@@ -27,6 +27,7 @@
 * 第5回(2016/11/07):[Kusuoka] 
 * 2016/11/14: 先生の御用事のため休講
 * 第6回(2016/11/21):[LordPowellShardlow] 
+[講義ノート](https://github.com/KatsuyaITO/NSofSDE/blob/master/SPDE/note.pdf "講義ノート")/
 
 
 ##備考
