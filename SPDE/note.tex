@@ -1,0 +1,387 @@
+\documentclass{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+
+\usepackage{amsmath,amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{framed}
+\usepackage{color}
+
+\def\qedsymbol{$\square$}
+\def\proofname{\gt{証明}\;}
+\newenvironment{Proof}{\par\noindent{\it\proofname}}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\newenvironment{Proof*}{\par\noindent}{{\unskip\nobreak\hfill{\it\qedsymbol}}\par\vskip 9pt}
+\ifx\undefined\bysame \newcommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\,}\fi
+%
+\numberwithin{equation}{section}
+\newtheorem{Thm}     {Thm}[section]
+\theoremstyle{definition}
+\newtheorem{Lemma}   [Thm]{Lem}
+\newtheorem{Def}     [Thm]{Def}
+\newtheorem{Prop}    [Thm]{Prop}
+\newtheorem{Fact}    [Thm]{Fact}
+\newtheorem{Assume}    [Thm]{Assumption}
+\newtheorem{Cor}     [Thm]{Cor}  
+\newtheorem{Conj}    [Thm]{Conj}
+\newtheorem{Ex}      [Thm]{Ex}  
+\newtheorem{Axiom}   [Thm]{Axiom}
+\newtheorem{Method}[Thm]{Method} 
+\newtheorem{Rem}  [Thm]{Rem}
+\newtheorem{Notation}[Thm]{Notation}
+\newtheorem{Symbol}  [Thm]{Symbol}
+\newtheorem{Prob}    [Thm]{Prob}
+\makeatletter
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{\vrule width 1pt \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+\makeatother
+
+\newenvironment{redleftbar}{%
+  \def\FrameCommand{\textcolor{red}{\vrule width 1pt} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{lightgrayleftbar}{%
+  \def\FrameCommand{\textcolor{lightgray}{\vrule width 1zw} \hspace{10pt}}% 
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\def\C{\mathbb C}
+\def\N{\mathbb N}
+\def\D{\mathcal D}
+\def\Z{\mathbb Z}
+\def\iff{\Leftrightarrow}
+\def\R{\mathbb R}
+\def\F{\mathcal F}
+\def\method{\begin{leftbar}\begin{Method}}
+\def\methodx{\end{Method}\end{leftbar}}
+\def\thm{\begin{leftbar}\begin{Thm}}
+\def\thmx{\end{Thm}\end{leftbar}}
+\def\prop{\begin{Prop}}
+\def\propx{\end{Prop}}
+\def\defb{\begin{leftbar}\begin{Def}}
+\def\defe{\end{Def}\end{leftbar}}
+\def\defx{\end{Def}\end{leftbar}}
+\newcommand{\supp}{\mathop{\mathrm{supp}}\nolimits}
+\def\rem{\begin{Rem}}
+\def\remx{\end{Rem}}
+\def\prob{\begin{Prob}}
+\def\probx{\end{Prob}}
+\def\lem{\begin{Lemma}}
+\def\lemx{\end{Lemma}}
+\def\ex{\begin{Ex}}
+\def\exx{\end{Ex}}
+\def\cor{\begin{Cor}}
+\def\corx{\end{Cor}}
+\def\proofb{\begin{proof}}
+\def\proofx{\end{proof}}
+\def\eq{\begin{equation}}
+\def\eqx{\end{equation}}
+\def\eqa{\begin{eqnarray}}
+\def\eqax{\end{eqnarray}}
+\def\eqan{\begin{eqnarray*}}
+\def\eqanx{\end{eqnarray*}}
+
+\def\a{\alpha}
+\def\lmd{\lambda}
+\def\omg{\omega}
+\def\Lmd{\Lambda}
+\def\Omg{\Omega}
+\newcommand{\Image}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}\nolimits}
+\newcommand{\Coker}{\mathop{\mathrm{Coker}}\nolimits}
+\newcommand{\vol}{\mathop{\mathrm{vol}}\nolimits}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
+\title{Basic Seminar in Mathematics\\An Introduction to Computational Stochastic PDEs}
+\author{Katsuya ITO}
+\date{\today}
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null
+    \vskip 50\p@
+    \begin{center}
+      \hrule height 1pt
+      \vskip 2pt 
+      \hrule
+      \vskip 3pt
+      {\huge \bfseries \strut \@title \strut}\par
+      \vskip 2pt
+      \hrule
+      \vskip 2pt
+      \hrule height 1pt
+    \end{center}
+    \vskip 50\p@
+    \begin{flushright}
+      \Large \@author \par
+    \end{flushright}
+    \vfil
+    \null
+    \begin{flushright}
+        {\small \@date}%
+    \end{flushright}
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+\makeatother
+\usepackage{listings, jlisting}
+\usepackage{color}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{colFunc}{rgb}{1,0.07,0.54}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{colID}{rgb}{0.63,0.44,0}
+ 
+\lstset{
+    language=Python,%プログラミング言語によって変える。
+    basicstyle={\ttfamily\small},
+    keywordstyle={\color{OliveGreen}},
+    keywordstyle={[2]\color{colFunc}},
+    keywordstyle={[3]\color{CadetBlue}},%
+    commentstyle={\color{Brown}},
+    %identifierstyle={\color{colID}},
+    stringstyle=\color{blue},
+    tabsize=2,
+    frame=trBL,
+    numbers=left,
+    numberstyle={\ttfamily\small},
+    breaklines=true,
+    backgroundcolor={\color[gray]{.95}},
+    captionpos=b
+}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{An Introduction to Computational Stochastic PDEs}
+\section{Variational formulation of elliptic PDEs}
+Let us develop the Galerkin approximation and  the finite element method for two-dimensional elliptic PDEs,such as
+\eqa
+\label{PDE1}
+-\nabla \cdot (a(\mathbf{x})\nabla u(\mathbf{x})) = -\sum_{j=1}^2 \frac{\partial}{\partial x_j} a(\mathbf{x})\frac{\partial u(\mathbf{x})}{\partial x_j} &=& f(\mathbf{x}), \ \ \mathbf{x}\in D,\\
+\label{PDE2}
+u(\mathbf{x}) &=& g(\mathbf{x}),\ \ \mathbf{x}\in \partial D
+\eqax
+where $D \subset \R^2$ is  a bounded domain with piecewise smooth boundary $\partial D$ and\\
+$u:D \to \R$ is an unknown function , and $g: \partial D\to \R$,$a,f:D\to \R$ is given suitable functions.
+\defb
+A function $u \in C^2(D) \cap C(D\cup \partial D)$ that satisfies these PDE's conditions is called \textbf{classical solution}
+\defx
+In many practical cases,$a$ is discontinuous and we do not have classical solutions and we are content with weak solutions.
+In this section, we often assume that the diffusion coefficient $a(x)$ satisfies following regularity.
+\defb
+The diffusion coefficient $a(x)$ is regular if $a(x)$ satisfies
+\[
+0 < a_{min} \le a(x) \le a_{max} < \infty \ \mbox{for almost all }x\in D
+\]
+for some $a_{min},a_{max} \in \R$.
+\defx
+To set up a variational formulation, We will check the definitions of function spaces below.
+\defb
+Let $D$ be a domain and $Y$ be a Banach space. And we use $\alpha$ as multi-index.\\
+For $p \ge 1$, the Sobolev space $W^{r,p}(D,Y)$ is the set of functions whose weak derivatives up to order $r \in \N$ are  $L^p(D,Y)$.That is 
+\[
+W^{r,p}(D,Y) = \{u:\D^\alpha u  \in L^p(D,Y) \mbox{ if} | \alpha | \le r \}
+\]
+and Sobolev space $W^{r,p}(D,Y)$ is a Banach space with norm
+\[
+\| u \|_{W^{r,p}(D,Y)} := \biggl( \sum_{0 \le \alpha \le r} \| \D^\alpha u  \|^p_{L^P(D,Y)} \biggl)^{1/p}
+\]
+If $p=2$ and $Y$ is Hilbert space , $H^r (D,Y)$ is used to denote $W^{r,2}(D,Y)$.\\
+$H^r (D,Y)$ is a Hilbert space with inner product 
+\[
+\langle u,v \rangle_{H^r (D,Y)} := \sum_{0 \le \alpha \le r} \langle \D^\alpha u , \D^\alpha v \rangle_{L^2(D,H)} 
+\]
+Especially, $H^r(D,\R)$ is abbreviated to $H^r(D)$.\\
+$H_0^1(D)$ is the completion of $C_c^\infty(D)$ with respect to the $H^1(D)$ norm and 
+is a Hilbert space with the $H^1(D)$ inner product\\
+The correct solution space is written as,
+\[
+H_g^1(D) = \{ w \in H^1(D) : \ w|_{\partial D} = g \}
+\]
+which needs precise definition later because $w \in H^1(D)$ can be non-continuous function on $\bar{D}$,and
+we can assign any value to w on $\partial D$ because of this and the fact that measure of $\partial D$ is zero.
+\defx
+Now, we are ready to set up a variational formulation of elliptic PDE\ref{PDE1}.
+\defb
+A \textbf{weak solution} to the BVP $(\ref{PDE1})-(\ref{PDE2})$ is a function $u \in W = H_g^1(D)$ that satisfies
+\[
+a(u,v) = l(v) \ \forall v \in V = H_0^1(D)
+\]
+where 
+\[
+a(u,v) := \int_D a \nabla u \cdot \nabla v d\mathbf{x}
+\]
+\[
+l(v) = \langle f, v \rangle_{L^2(D)}
+\]
+\defx
+\prop
+The classical solution to the BVP $(\ref{PDE1})-(\ref{PDE2})$ is a weak solution
+\propx
+\proofb
+First, we multiply both sides of $(\ref{PDE1})$ 
+by a test function $\phi \in C_c^\infty(D)$ and integrate over D, and obtain 
+\[
+\int_D -\nabla \cdot (a(\mathbf{x})\nabla u(\mathbf{x}))\phi(\mathbf{x})d\mathbf{x}  = \int_D f(\mathbf{x})\phi(\mathbf{x})d\mathbf{x} 
+\]
+and by the product rule for $\nabla$
+\[
+\nabla \cdot (\phi a\nabla u) = \nabla \cdot ( a\nabla u) \phi + \nabla \phi  \cdot a\nabla u 
+\]
+we can split the intergal of the left-hand side and get
+\[
+\int_D  a \nabla u \cdot \nabla \phi d \mathbf{x}
+-\int_D \nabla \cdot (\phi a\nabla u)  d\mathbf{x} 
+ = \int_D f(\mathbf{x})\phi(\mathbf{x})d\mathbf{x} 
+\]
+And the divergence theorem in $\R^2$ gives 
+\[
+\int_D \nabla \cdot (\phi a\nabla u)  d\mathbf{x}  = \int_{\partial D}  (\phi a\nabla u)\cdot \mathbf{n}  ds
+\]
+Here $\phi \in   C_c^\infty(D)$ , we have $\phi(x) = 0 $ on $\partial D$ and the left-hand side is $0$. Hence
+\[
+\int_D  a \nabla u \cdot \nabla \phi d \mathbf{x}
+ = \int_D f(\mathbf{x})\phi(\mathbf{x})d\mathbf{x} 
+\]
+\proofx
+We cannot use the Lax-Milgram lemma because $W \neq V$ when $g \neg 0$.So we need some modifications to 
+prove the existence and uniqueness of the weak solutions.
+
+\defb
+Let $D \subset \R^2$ be a bounded domain.$L^2(\partial D)$ is the Hilbert space $L^2(\partial,\R)$
+equipped with the norm
+\[
+\| g \|_{L^2(\partial D)} := \biggl( \int_{\partial D} g(x)^2 dV(x) \biggl)^{1/2}
+\]
+
+\defx
+
+\lem
+Let $D \subset \R^2$ be a bounded domain with a sufficiently smooth boundary $\partial D$.
+Then there exists a bounded linear operator $\gamma : H^1(D) \to L^2(\partial D)$such that 
+\[
+\gamma w = w|_{\partial D} , \ \forall w \in C^1(\bar{D})
+\]
+\lemx
+
+\begin{proof}
+$w \in H^1(D)$ can be approximated by a sequence in  $ C(\bar{D}) $ , $ \{ w_n \} $  and the restrictions of  these functions are a Cauchy sequence so we can define $\gamma$ by
+\[
+\gamma(w) := \lim_{n\to \infty} w_n|_{\partial D} 
+\]
+as a linear operator $H^1(D) \to L^2(\partial D)$
+\end{proof}
+
+\defb
+Let $D \subset \R^2$ be a bounded domain.The trace space $H^{1/2}(\partial D)$ is defined as
+\[
+H^{1/2}(\partial D) := \gamma (H^1(D)) = \{ \gamma w | w \in H^1(D) \}
+\]
+$H^{1/2}(\partial D) $ is a Hilbert space equipped with the norm
+\[
+\| g\|_{H^{1/2}(\partial D) } := \inf \{ \|w \|_{H^{1}(D) } | \gamma w = g ,\  w \in H^1(D) \}
+\]
+
+\defx
+
+\prop
+There exists $K_\gamma > 0$ such that , for all $g\in H^{1/2}(\partial D) $, there exists $u_g \in H^1(D)$ such that 
+\[
+\| u_g \| _{H^1(D)}  \le K_\gamma \| g \| _{H^{1/2}(\partial D) }
+\]
+and 
+\[
+\gamma(u_g) = g 
+\]
+\propx
+\begin{proof}
+See Hackbusch Theorem6.2.28
+\end{proof}
+
+\thm
+Let $a$ be a regular diffusion coefficient , $f \in  L^2(D)$, \ $g \in H^{1/2}(\partial D)$.\\
+Then BVP $(\ref{PDE1})-(\ref{PDE2})$ has a unique solution $u \in H_g^1(D)$
+\thmx
+\proofb
+Let  $g \in H^{1/2}(\partial D)$.\\
+$u_g \in H^1(D)$ such that $\gamma(u_g) = g $\\
+and solve the variational problem to find $u_0 \in V$ 
+\[
+a(u_0,v) = \hat{l}(v) := l(v) - a(u_g,v)
+\]
+Solving this problem is equivalent to finding the weak solution of the BVP.\\
+So We can use the  Lax-Milgram lemma to new variational problem by the lemma below and can prove this theorem.\\
+\proofx
+\lem
+Let $a$ be a regular diffusion coefficient. Then the bilinear form $a(,)$is bounded form.And the seminorm $|\cdot |_E$ defined by
+\[
+|u|_E := a(u,u)^{1/2}
+\]
+is equivalent to the semi-norm $|\cdot |_{H^1(D)} $ on $H^1(D)$
+\lemx
+\proofb
+
+\proofx
+\thm
+Assume the same conditions of the theorem above and let $u \in W$ be a weak solution of the BVP.
+Then 
+\[
+|u|_{H^1(D)} \le K (\|f\|_{L^2(D)} + \|g\|_{H^{1/2}(\partial D) })
+\]
+\thmx
+This variational formulation gives upper bound for the errors of approximations.
+\thm
+Consider a weak problem to find $\tilde{u}\in W$ such that 
+\[
+\tilde{a}(\tilde{u},v) = \tilde{l} (v) \ \forall v \in V
+\]
+where $\tilde{a}:W\times V \to \R$,$\tilde{l}:V\to \R$ are defined as
+\[
+\tilde{a}(u,v) := \int_D \tilde{a} \nabla u \cdot \nabla v d\mathbf{x}
+\]
+\[
+\tilde{l}(v) = \langle \tilde{f}, v \rangle_{L^2(D)}
+\]
+Now let $\tilde{a}$ be a regular diffusion coefficient , $\tilde{f} \in L^2(D)$
+$g \in H^{1/2}(\partial D)$.Then  this weak problem has a unique solution $\tilde{u} \in W$.
+And let $u \in W$ be the weak solution of the original BVP. Then,
+\[
+| u - \tilde{u} |_{H^1(D)} \le \frac{K_p }{\tilde{a}_{min}} \| f - \tilde{f} \|_{L^2(D)}
++ \frac{1}{\tilde{a}_{min}} \| a - \tilde{a} \|_{L^\infty (D) } | u |_{H^1(D)}
+\]
+\thmx
+\section{Galerkin approximation}
+We return to the approximation of the original BVP.
+\defb
+Let $V^h \subset H_0^1(D)$,$W^h \subset H^1_g(D)$be the finite dimensional subspaces of test solution space and solution space such that 
+\[
+v - w \in V^h ,\ \forall v,w \in W^h
+\]
+Then the Galerkin approximation for the $(\ref{PDE1})-(\ref{PDE2})$ is the function $u_h \in W^h$ satisfying
+\eq
+\label{Galerkin}
+a(u_h,v)=l(v) \ \forall v \in V^h 
+\eqx
+
+\defx
+\thm
+Let $a$ be a regular diffusion coefficient , $f \in  L^2(D)$, \ $g \in H^{1/2}(\partial D)$.\\
+Then Galerkin approximation $(\ref{Galerkin})$ will be defined uniquely and will be  the best approximation.
+i.e.
+\[
+|u-u_h|_{E} = \inf_{w\in W^h} |u -w|_{E}
+\]
+\thmx
+Finally we consider the accuracy of the Galerkin approximation $\tilde{u}_h$ when $a$ and $f$ are approximated.\\
+I have run out of my energy.
+\end{document}
