@@ -28,6 +28,10 @@
 * 2016/11/14: 先生の御用事のため休講
 * 第6回(2016/11/21):[LordPowellShardlow] 
 [講義ノート](https://github.com/KatsuyaITO/NSofSDE/blob/master/SPDE/note.pdf "講義ノート")/
+* 第7回(2016/11/28):[LordPowellShardlow] 
+* 第8回(2016/12/05):[LordPowellShardlow] 
+* 第9回(2016/12/12):[LordPowellShardlow] 
+[スライド](https://github.com/KatsuyaITO/NSofSDE/blob/master/SPDE/chap10.pdf "スライド")/
 
 
 ##備考
